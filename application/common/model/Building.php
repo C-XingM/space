@@ -44,7 +44,7 @@ class Building extends Model {
     }
 
     /**
-     * 根据小区编号，获取栋数列表
+     * 根据校区编号，获取栋数列表
      * @param $cmCode
      * @return false|\PDOStatement|string|\think\Collection
      */

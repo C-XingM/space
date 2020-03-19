@@ -16,6 +16,11 @@ class House extends Model {
 
     // 表名,不含前缀
     public $name = 'house';
+    // 开启自动写入时间戳字段
+    protected $autoWriteTimestamp = 'int';
+    // 定义时间戳字段名
+    protected $createTime = 'create_time';
+    protected $updateTime = 'update_time';
 
     /**
      * 获取编号最大值

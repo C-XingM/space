@@ -56,13 +56,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                         }},
                         {field: 'code', title: __('Code'), operate: false},
                         {field: 'name', title: __('Name'), operate: false},
-                        {field: 'owner_name', title: __('OwnerName'), operate: false},
-                        {field: 'owner_tel', title: __('OwnerTel'), operate: false},
-                        {field: 'rooms', title: __('Rooms'), operate: false},
-                        {field: 'unit', title: __('Unit'), operate: false},
-                        {field: 'floor', title: __('Floor'), operate: false},
-                        {field: 'desc', title: __('Desc'), operate: false},
-                        {field: 'enter_time', title: __('EnterTime'),formatter: Table.api.formatter.date},
+                        // {field: 'owner_name', title: __('OwnerName'), operate: false},
+                        // {field: 'owner_tel', title: __('OwnerTel'), operate: false},
+                        // {field: 'rooms', title: __('Rooms'), operate: false},
+                        // {field: 'unit', title: __('Unit'), operate: false},
+                        // {field: 'floor', title: __('Floor'), operate: false},
+                        // {field: 'desc', title: __('Desc'), operate: false},
+                        {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.date},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]

@@ -16,7 +16,7 @@ class Index extends Backend {
     protected $model = null;
     protected $communityAdminModel = null;
     //检索时匹配的字段
-    protected $searchfields = 'code,name,address,developer,estate';
+    protected $searchfields = 'code,name,address';//'code,name,address,developer,estate';
     protected $noNeedRight = ['selectpage'];
 
     public function _initialize() {

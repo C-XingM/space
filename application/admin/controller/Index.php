@@ -31,7 +31,7 @@ class Index extends Backend
     {
         //左侧菜单
         //$badge = $this->getBadge();
-        // $menulist = $this->auth->getSidebar($badge, $this->view->site['fixedpage']);
+        //$menulist = $this->auth->getSidebar($badge, $this->view->site['fixedpage']);
         $menulist = $this->auth->getSidebar($this->view->site['fixedpage']);
         $this->view->assign('menulist', $menulist);
         $this->view->assign('title', __('Home'));
@@ -104,7 +104,7 @@ class Index extends Backend
         $this->success(__('Logout successful'), 'index/login');
     }
 
-    /* private function getBadge() {
+   /*  private function getBadge() {
         $badge = [
             'dashboard'             => '控',
             'community/index'       => '小',

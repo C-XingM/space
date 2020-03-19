@@ -16,8 +16,9 @@ class Index extends Backend {
     protected $model = null;
     protected $communityModel = null;
     protected $buildingModel = null;
+    
     //检索时匹配的字段
-    protected $searchfields = 'code,name,owner_name,owner_tel';
+    protected $searchfields = 'code,name';//'code,name,owner_name,owner_tel';
     protected $noNeedRight = ['selectpage','get_building_by_cm_code'];
 
     public function _initialize() {
@@ -108,18 +109,18 @@ class Index extends Backend {
         if ($searchs['building_code']) {
             $where[] = array('building_code', '=', $searchs['building_code']);
         }
-        if ($searchs['enter_time_begin']) {
-            $where[] = array('enter_time', '>=', strtotime($searchs['enter_time_begin'].'00:00:00'));
-        }
-        if ($searchs['enter_time_end']) {
-            $where[] = array('enter_time', '<=', strtotime($searchs['enter_time_end'].'23:59:59'));
-        }
-        if ($searchs['owner_name']) {
-            $where[] = array('owner_name', 'like', sprintf('%%%s%%',$searchs['owner_name']));
-        }
-        if ($searchs['owner_tel']) {
-            $where[] = array('owner_tel', 'like', sprintf('%%%s%%',$searchs['owner_tel']));
-        }
+        // if ($searchs['enter_time_begin']) {
+        //     $where[] = array('enter_time', '>=', strtotime($searchs['enter_time_begin'].'00:00:00'));
+        // }
+        // if ($searchs['enter_time_end']) {
+        //     $where[] = array('enter_time', '<=', strtotime($searchs['enter_time_end'].'23:59:59'));
+        // }
+        // if ($searchs['owner_name']) {
+        //     $where[] = array('owner_name', 'like', sprintf('%%%s%%',$searchs['owner_name']));
+        // }
+        // if ($searchs['owner_tel']) {
+        //     $where[] = array('owner_tel', 'like', sprintf('%%%s%%',$searchs['owner_tel']));
+        // }
         return $where;
     }
 

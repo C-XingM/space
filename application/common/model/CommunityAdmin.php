@@ -18,7 +18,7 @@ class CommunityAdmin extends Model {
     public $name = 'community_admin';
 
     /**
-     * 根据小区id获取管理员
+     * 根据校区id获取管理员
      * @param $cmId
      * @return array
      */
@@ -28,7 +28,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 根据小区编号获取管理员
+     * 根据校区编号获取管理员
      * @param $code
      * @return array
      */
@@ -37,7 +37,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 新增小区管理员
+     * 新增校区管理员
      * @param $cmId
      * @param $adminIds
      */
@@ -56,7 +56,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 更新小区管理员
+     * 更新校区管理员
      * @param $cmId
      * @param $adminIds
      */
@@ -74,7 +74,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 删除小区管理员
+     * 删除校区管理员
      * @param $cmId
      */
     public function delManager($cmId) {
@@ -83,7 +83,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 新增管理员对应的小区
+     * 新增管理员对应的校区
      * @param $communityCodes
      * @param $adminId
      */
@@ -101,7 +101,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 更新管理员对应的小区
+     * 更新管理员对应的校区
      * @param $communityCodes
      * @param $adminId
      */
@@ -118,7 +118,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 根据id获取小区编号
+     * 根据id获取校区编号
      * @param $id
      * @return mixed|null
      */
@@ -131,7 +131,7 @@ class CommunityAdmin extends Model {
     }
 
     /**
-     * 根据管理员id，获取小区编号
+     * 根据管理员id，获取校区编号
      * @param $adminId
      * @return array
      */

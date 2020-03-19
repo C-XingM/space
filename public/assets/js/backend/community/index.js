@@ -33,12 +33,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                         {field: 'code', title: __('Code'), operate: false},
                         {field: 'name', title: __('Name'), operate: false},
                         {field: 'address', title: __('Address'), operate: false},
-                        {field: 'area', title: __('Area')+'（m<sup>2</sup>）', operate: false},
-                        {field: 'total_building', title: __('TotalBuilding'), operate: false},
-                        {field: 'total_owner', title: __('TotalOwner'), operate: false},
-                        {field: 'greening_rate', title: __('GreeningRate')+'（%）', operate: false},
-                        {field: 'developer', title: __('Developer'), operate: false},
-                        {field: 'estate', title: __('Estate'), operate: false},
+                        // {field: 'area', title: __('Area')+'（m<sup>2</sup>）', operate: false},
+                        // {field: 'total_building', title: __('TotalBuilding'), operate: false},
+                        // {field: 'total_owner', title: __('TotalOwner'), operate: false},
+                        // {field: 'greening_rate', title: __('GreeningRate')+'（%）', operate: false},
+                        // {field: 'developer', title: __('Developer'), operate: false},
+                        // {field: 'estate', title: __('Estate'), operate: false},
                         {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]

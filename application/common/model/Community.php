@@ -41,7 +41,7 @@ class Community extends Model {
     }
 
     /**
-     * 根据权限获取小区id
+     * 根据权限获取校区id
      * @param $auth
      * @return false|\PDOStatement|string|\think\Collection
      */
