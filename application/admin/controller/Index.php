@@ -30,8 +30,9 @@ class Index extends Backend
     public function index()
     {
         //左侧菜单
-        $badge = $this->getBadge();
-        $menulist = $this->auth->getSidebar($badge, $this->view->site['fixedpage']);
+        //$badge = $this->getBadge();
+        // $menulist = $this->auth->getSidebar($badge, $this->view->site['fixedpage']);
+        $menulist = $this->auth->getSidebar($this->view->site['fixedpage']);
         $this->view->assign('menulist', $menulist);
         $this->view->assign('title', __('Home'));
         return $this->view->fetch();
@@ -103,7 +104,7 @@ class Index extends Backend
         $this->success(__('Logout successful'), 'index/login');
     }
 
-    private function getBadge() {
+    /* private function getBadge() {
         $badge = [
             'dashboard'             => '控',
             'community/index'       => '小',
@@ -133,7 +134,7 @@ class Index extends Backend
             //'addon'       => ['new', 'red', 'badge'],
         ];
         return $badge;
-    }
+    } */
 
     /**
      * 获取随机背景图

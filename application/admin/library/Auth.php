@@ -325,14 +325,15 @@ class Auth extends \fast\Auth
      * @param array $params URL对应的badge数据
      * @return string
      */
-    public function getSidebar($params = [], $fixedPage = 'dashboard')
+    // public function getSidebar($params = [], $fixedPage = 'dashboard')
+    public function getSidebar($fixedPage = 'dashboard')
     {
         $colorArr = ['red', 'green', 'yellow', 'blue', 'teal', 'orange', 'purple'];
         $colorNums = count($colorArr);
         $badgeList = [];
         $module = request()->module();
         // 生成菜单的badge
-        foreach ($params as $k => $v)
+        /* foreach ($params as $k => $v)
         {
 
             $url = $k;
@@ -354,7 +355,7 @@ class Auth extends \fast\Auth
             {
                 $badgeList[$url] = '<small class="' . $class . ' pull-right bg-' . $color . '">' . $nums . '</small>';
             }
-        }
+        } */
 
         // 读取管理员当前拥有的权限节点
         $userRule = $this->getRuleList();
