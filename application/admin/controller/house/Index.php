@@ -50,7 +50,7 @@ class Index extends Backend {
         if ($this->request->isPost()) {
             $params = $this->request->post('row/a');
             $params['code'] = $this->model->getMaxCode();
-            $params['enter_time'] = strtotime($params['enter_time']);
+            //$params['enter_time'] = strtotime($params['enter_time']);
             $this->request->post(array('row'=>$params));
         }
         return parent::create();
@@ -59,7 +59,7 @@ class Index extends Backend {
     public function edit($ids = null) {
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a");
-            $params['enter_time'] = strtotime($params['enter_time']);
+            //$params['enter_time'] = strtotime($params['enter_time']);
             $this->request->post(['row' => $params]);
         }
         return parent::modify($ids,'add');

@@ -14,7 +14,20 @@
             </select>
         </div>
     </div>
-
+    <div class="form-group">
+      <label for="building_code" class="control-label col-xs-12 col-sm-2">{:__('Building')}:</label>
+      <div class="col-xs-12 col-sm-6">
+          <select id="building_code" data-rule="required" class="form-control" name="row[building_code]">
+          </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="house_code" class="control-label col-xs-12 col-sm-2">{:__('House')}:</label>
+      <div class="col-xs-12 col-sm-6">
+          <select id="house_code" data-rule="required" class="form-control" name="row[house_code]">
+          </select>
+      </div>
+    </div>
     <div class="form-group">
         <label for="title" class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
         <div class="col-xs-12 col-sm-6">
@@ -25,16 +38,12 @@
     <div class="form-group">
         <label for="container" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
         <div class="col-xs-12 col-sm-9">
-            <script id="container" name="row[content]" type="text/plain">{$row.content}</script>
+            <!-- <script id="container" name="row[content]" type="text/plain">{$row.content}</script> -->
+            <textarea class="form-control" id="container" name="row[content]" rows="5" data-rule="required">{$row.content}</textarea>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="place" class="control-label col-xs-12 col-sm-2">{:__('Place')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="place" name="row[place]" value="{$row.place}" data-rule="required" />
-        </div>
-    </div>
+    
 
     <div class="form-group">
         <label for="sponsor_unit" class="control-label col-xs-12 col-sm-2">{:__('SponsorUnit')}:</label>

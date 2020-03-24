@@ -7,7 +7,7 @@
                 <div class="widget-body no-padding">
                     {include file="house/index/common_search" /}
                     <div id="toolbar" class="toolbar">
-                        {:build_toolbar()}
+                        {:build_toolbar('refresh,add,delete')}
                     </div>
                     <table id="table" class="table table-striped table-bordered table-hover"
                            data-operate-edit="{:$auth->check('house/index/edit')}"

@@ -15,23 +15,25 @@
                     </div>
                 </div>
                 <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <label class="control-label col-xs-4">{:__('House')}:</label>
-                    <div class="col-xs-12 col-sm-6">
-                        <select id="house_code" class="form-control" name="query[house_code]">
-                        </select>
-                    </div>
+                  <label class="control-label col-xs-4">{:__('Building')}:</label>
+                  <div class="col-xs-12 col-sm-6">
+                      <select id="building_code" class="form-control" name="query[building_code]">
+                      </select>
+                  </div>
                 </div>
-                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <label class="control-label col-xs-4">{:__('Birth')}:</label>
+                <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                    <label class="control-label col-xs-4">{:__('Time')}:</label>
                     <div class="col-xs-12 col-sm-8">
                         <div class="row row-between">
                             <div class="col-xs-6 11" style="position: relative;width:49%;">
-                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_begin]" value="" />
+                                <!-- <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_begin]" value="" /> -->
+                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="start_time" name="row[start_time]" value="{$duty.start_time|datetime='Y-m-d H:i'}" data-rule="required;datetime" />
                             </div>
                             <div style="position: relative;float:left;height:30px;line-height:30px;">-</div>
                             <div class="col-xs-6 22" style="position: relative;width:49%;">
-                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_end]" value="" />
-                            </div>
+                                <!-- <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_end]" value="" /> -->
+                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="end_time" name="row[end_time]" value="{$duty.end_time|datetime='Y-m-d H:i'}" data-rule="required;datetime" />
+                              </div>
                         </div>
                     </div>
                 </div>

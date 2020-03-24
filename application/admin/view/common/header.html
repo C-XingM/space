@@ -3,7 +3,7 @@
     <!-- 迷你模式下Logo的大小为50X50 -->
     <span class="logo-mini">{$site.name|mb_substr=0,4,'utf-8'|mb_strtoupper='utf-8'}</span>
     <!-- 普通模式下Logo -->
-    <span class="logo-lg">{$site.name|mb_substr=0,4,'utf-8'}{$site.name|mb_substr=4,null,'utf-8'}</span>
+    <span class="logo-lg" style="font-size:18px;">{$site.name|mb_substr=0,4,'utf-8'}{$site.name|mb_substr=4,null,'utf-8'}</span>
 </a>
 <!-- 顶部通栏样式 -->
 <nav class="navbar navbar-static-top">
@@ -20,31 +20,19 @@
 
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
             <li>
-                <a href="{:url('index/index/index')}" target="_blank" title="{:__('Frontend home')}"><i class="fa fa-home" style="font-size:14px;"></i></a>
+                <a href="javascript:;"><span>{:date('Y年m月d日 ')}{:__(date('星期w'))}</span></a>
+                <!-- :date('Y年m月d日')+ -->
             </li>
 
-            <li>
+            <!-- <li>
+                <a href="{:url('index/login')}" target="_blank" title="{:__('Frontend home')}"><i class="fa fa-home" style="font-size:14px;"></i></a>
+            </li> -->
+
+            <li class="hidden">
                 <a href="javascript:;" data-toggle="wipecache" title="{:__('Wipe cache')}">
                     <i class="fa fa-trash"></i>
                 </a>
-            </li>
-
-            <li class="hidden-xs">
-                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" title="{:__('Language switch')}"><i class="fa fa-language"></i></a>
-                <ul class="dropdown-menu">
-                    <li class="{$config['language']=='zh-cn'?'active':''}">
-                        <a href="?ref=addtabs&lang=zh-cn">简体中文</a>
-                    </li>
-                    <li class="{$config['language']=='en'?'active':''}">
-                        <a href="?ref=addtabs&lang=en">English</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="hidden-xs">
-                <a href="#" data-toggle="fullscreen" title="{:__('Full screen')}"><i class="fa fa-arrows-alt"></i></a>
             </li>
 
             <!-- 账号信息下拉框 -->
@@ -52,6 +40,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="__CDN__{$admin.avatar}" class="user-image" alt="{$admin.nickname}">
                     <span class="hidden-xs">{$admin.nickname}</span>
+                    <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
@@ -74,10 +63,21 @@
                         </div>
                     </li>
                 </ul>
-            </li>
-            <!-- 控制栏切换按钮 -->
-            <li>
-                <a href="javascript:;" data-toggle="control-sidebar" title="{:__('Layout setting')}"><i class="fa fa-gears"></i></a>
+                <!-- <ul class="dropdown-menu" style="margin-top:5px; background-color: #16a98c;">
+                    <li>
+                      <a href="general/profile" class="btn addtabsit pull-left" style="color: #fff;">
+                        <i class="fa fa-user"></i> 
+                        {:__('Profile')}
+                      </a>
+                    </li>
+                    <li>
+                        <a href="{:url('index/logout')}" class="btn pull-left" style="color: #fff;">
+                          <i class="fa fa-sign-out"></i> 
+                          {:__('Logout')}
+                        </a>
+                        
+                    </li>
+                </ul> -->
             </li>
         </ul>
     </div>

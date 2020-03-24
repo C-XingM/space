@@ -1,7 +1,7 @@
 <?php
 
 return array (
-  'name' => '至简物业管理系统',
+  'name' => '仲恺场地申请管理系统',
   'beian' => '',
   'cdnurl' => '',
   'version' => '1.0.1',

@@ -10,7 +10,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                     edit_url: 'service/activity/edit',
                     del_url: 'service/activity/del',
                     detail_url: 'service/activity/detail',
-                    table: 'service'
+                    table: 'service',
+                    //设置不同操作下的弹窗宽高
+                    area: {
+                      detail:['800px','90%']
+                    }
                 }
             });
 
@@ -42,23 +46,59 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
-                        {field: 'community', title: __('Community'), formatter: function (community) {
+                        //{field: 'id', title: __('Id')},
+                        {
+                          field: 'no',
+                          title: __('TableID'),
+                          //sortable: true,
+                          align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
+                        {field: 'admin', title: __('Admin'), formatter: function (admin) {
+                          if(admin) {
+                              return admin.nickname+"("+admin.username+")";
+                          }
+                          return '';
+                        }},
+                        {field: 'tel', title: __('Tel'), operate: false},
+                        {field: 'sponsor_unit', title: __('SponsorUnit'), operate: false},
+                        {field: 'title', title: __('Title'), operate: false},
+                        {field: 'type', title: __('Type'), operate: false, formatter: function (value) {
+                          var types = ['Teaching','Recreational','Others']
+                          return Table.api.formatter.types(types[value]);
+                        }},
+                        {field: 'community', title: __('Community'), visible: false, formatter: function (community) {
                             if(community) {
                                 return community.name;
                             }
                             return '';
                         }},
-                        {field: 'title', title: __('Title'), operate: false},
-                        {field: 'place', title: __('Place'), operate: false},
-                        {field: 'sponsor_unit', title: __('SponsorUnit'), operate: false},
+                        {field: 'building', title: __('Building'), visible: false, formatter: function (building) {
+                          if(building) {
+                              return building.name;
+                          }
+                          return '';
+                        }},
+                        {field: 'house', title: __('House'),  formatter: function (house) {
+                          if(house) {
+                              return house.name;
+                          }
+                          return '';
+                        }},
                         {field: 'status', title: __('Status'), operate: false, formatter: function (value) {
-                            var statuses = ['InValid','Valid']
+                            var statuses = ['InValid','Valid','Valid1']
                             return Table.api.formatter.status(statuses[value]);
                         }},
-                        {field: 'begin_time', title: __('BeginTime'),formatter: Table.api.formatter.datetime},
-                        {field: 'end_time', title: __('EndTime'),formatter: Table.api.formatter.datetime},
-                        {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.datetime},
+                        //{field: 'begin_time', title: __('BeginTime'),formatter: Table.api.formatter.datetime},
+                        //{field: 'end_time', title: __('EndTime'),formatter: Table.api.formatter.datetime},
+                        {field: 'create_time', title: __('CreateTime'), visible: false, formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
@@ -90,7 +130,41 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
             }
-        }
-    };
-    return Controller;
+        },
+        handleCommunityState: function (showAll) {
+          var building_id = $("#building_id").val();
+          $("#community_code").bind("change",function(){
+              var community_code = $(this).val();
+              $.ajax({
+                  type: "POST",
+                  url: 'house/index/get_building_by_cm_code',
+                  async: true,
+                  cache: false,
+                  dataType : "json",
+                  data: {community_code:community_code},
+                  success: function(data) {
+                      var building = data.building;
+
+                      var buildingHtml = showAll ? '<option value="">全部</option>' : '';
+                      $.each(building,function(index,item){
+                          buildingHtml += '<option value="'+item.code+'">'+item.name+'</option>';
+                      });
+                      if(buildingHtml == ''){
+                          buildingHtml = '<option value="">没有任何选中项</option>';
+                      }
+                      $("#building_code").html(buildingHtml);
+                      if (building_id) {
+                          $("#building_code").val(building_id);
+                      }
+                      $("#building_code").selectpicker({
+                          showTick:true,
+                          liveSearch:true
+                      });
+                      $("#building_code").selectpicker("refresh");
+                  }
+              });
+          });
+      }
+  };
+  return Controller;
 });

@@ -4,34 +4,53 @@
         {include file="common/meta" /}
 
         <style type="text/css">
+            *{
+              padding: 0;
+              margin: 0;
+            }
             body {
-                color:#999;
-                background:url('{$background}');
-                background-size:cover;
+               background-color: #fff;
             }
-            a {
-                color:#fff;
+            /* 头部 */
+            #header{
+              background:url('__CDN__/assets/img/loginbg3.jpg');
+              background-size:cover;
+              height: 150px;
+              /* background-size: 100% 100%; */
+              border-radius: 0;
+              margin-bottom: 15px;
+              position: relative;
             }
-            .login-panel{margin-top:150px;}
-            .login-screen {
-                max-width:400px;
-                padding:0;
-                margin:100px auto 0 auto;
-
+            .header-logo{
+              position: absolute;
+              line-height: 150px;
+              left: 48px;
             }
-            .login-screen .well {
-                border-radius: 3px;
-                -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                background: rgba(255,255,255, 0.2);
+            .header-title{
+              font-size: 40px!important;
+              display: inline;
+              margin:0;
+            }
+            .header-time{
+              position: absolute;
+              right: 30px;
+              bottom: 10px;
+              font-size: 14px;
+              font-family: "微软雅黑";
+            }
+            /* 登录框 */
+            .login-well ,.article-well{
+               border: 1px solid #dcdcdc;
+               padding: 25px;
+               margin-bottom: 15px;
             }
             .login-screen .copyright {
                 text-align: center;
             }
             @media(max-width:767px) {
-                .login-screen {
+                /* .login-screen {
                     padding:0 20px;
-                }
+                } */
             }
             .profile-img-card {
                 width: 100px;
@@ -44,6 +63,15 @@
             }
             .profile-name-card {
                 text-align: center;
+                font-family: 微软雅黑;
+                font-size: 16px;
+                color: #2a672d;
+                font-weight: bold;
+            }
+
+            #loginbtn {
+              background-color: #2a672d;
+              border-radius: 0;
             }
 
             #login-form {
@@ -52,46 +80,163 @@
             #login-form .input-group {
                 margin-bottom:15px;
             }
-
+            /* 通知公告 */
+            .article-well{
+               padding: 0;
+            }
+            .article-title {
+                margin: 0;
+                line-height: 45px;
+                font-size: 17px;
+                background-color: #2a672d;
+                padding: 0 25px;
+                color: #fff;
+                font-family: Microsoft YaHei;
+            }
+            .article-title>a>i{
+                position: absolute;
+                right: 25px;
+                line-height: 45px;
+                font-size:22px;
+                color: #fff;
+            }
+            .article-content {
+              padding: 10px 20px 20px;
+              margin: 0;
+            }
+            .article-content>li{ 
+              font-size: 14px;
+              border-bottom: 1px solid #ccc;
+              line-height: 2.3em;
+              padding-left: 4px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .article-content>li>a{
+              color:#000;
+              background: url('__CDN__/assets/img/dian.png') no-repeat left center;
+              padding-left: 20px;
+            }
+            .article-content>li>a:hover{
+              color:#3c8dbc;
+            }
+            /* 底部 */
+            #footer{
+              padding: 10px 0;
+              font-size: 14px;
+              background-color: #2a672d;
+            }
+            #footer>.copyright{
+              margin: 0;
+              color: #fff;
+              font-size: 14px;
+              font-family: "微软雅黑";
+            }
+            #footer>.copyright>a{
+              font-size: 15px;
+            }
         </style>
     </head>
     <body>
         <div class="container">
-            <div class="login-wrapper">
-                <div class="login-screen">
-                    <div class="well">
-                        <div class="login-form">
-                            <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png" />
-                            <p id="profile-name" class="profile-name-card" style="color:#FFFFFF;font-size:16px;">{$site.name}</p>
-                            
-                            <form action="" method="post" id="login-form">
-                                <div id="errtips" class="hide"></div>
-                                {:token()}
-                                <div class="input-group">
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
-                                    <input type="text" class="form-control" id="pd-form-username" placeholder="{:__('Username')}" name="username" autocomplete="off" value="" data-rule="{:__('Username')}:required;username" />
+            <div class="jumbotron text-center" id="header">
+                <img src="__CDN__/assets/img/d_banner_school.gif" alt="logo" class="header-logo visible-md visible-lg">
+                <h1 class="header-title">场地申请管理系统</h1>
+                <span class="header-time visible-md visible-lg">{:date('Y年m月d日 ')}{:__(date('星期w'))}</span>
+                <!-- <h1>我的第一个 Bootstrap 4 页面</h1>
+                <p>重置浏览器窗口大小查看效果！</p>  -->
+              </div>
+              <div class="container">
+                <div class="row"  style="margin-right: 0;">
+                  <div class="col-sm-3" style="padding:0;">
+                    <!-- 登录框 -->
+                    <div class="login-wrapper">
+                        <div class="login-screen">
+                            <div class="login-well">
+                                <div class="login-form">
+                                    <!-- <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png" /> {$site.name}-->
+                                    <p id="profile-name" class="profile-name-card" >{:__('ID login')}</p>
+                                    <form action="" method="post" id="login-form">
+                                        <div id="errtips" class="hide"></div>
+                                        {:token()}
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+                                            <input type="text" class="form-control" id="pd-form-username" placeholder="{:__('Username')}" name="username" autocomplete="off" value="" data-rule="{:__('Username')}:required;username" />
+                                        </div>
+        
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
+                                            <input type="password" class="form-control" id="pd-form-password" placeholder="{:__('Password')}" name="password" autocomplete="off" value="" data-rule="{:__('Password')}:required;password" />
+                                        </div>
+        
+                                        <div class="form-group">
+                                            <label class="inline" for="keeplogin">
+                                                <input type="checkbox" name="keeplogin" id="keeplogin" value="1" />
+                                                {:__('Keep login')}
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success btn-lg btn-block" id="loginbtn">{:__('Sign in')}</button>
+                                        </div>
+                                    </form>
                                 </div>
-
-                                <div class="input-group">
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
-                                    <input type="password" class="form-control" id="pd-form-password" placeholder="{:__('Password')}" name="password" autocomplete="off" value="" data-rule="{:__('Password')}:required;password" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="inline" for="keeplogin">
-                                        <input type="checkbox" name="keeplogin" id="keeplogin" value="1" />
-                                        {:__('Keep login')}
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-lg btn-block">{:__('Sign in')}</button>
-                                </div>
-                            </form>
+                            </div>
+                            <!-- <p class="copyright"><a href="https://jskx.zhku.edu.cn/" target="_blank">Powered By 仲恺计科</a></p> -->
                         </div>
                     </div>
-                    <p class="copyright"><a href="">Powered By 至简物业</a></p>
+                    <!-- 公告文章 -->
+                    <div class="article-wrapper">
+                        <div class="article-screen">
+                          <div class="article-well">
+                            <h3 class="article-title">通知公告
+                              <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
+                            </h3>
+                            <ul class="article-content">
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 1</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="col-sm-9">
+                      <div class="article-wrapper">
+                          <div class="article-screen">
+                            <div class="article-well">
+                              <h3 class="article-title">通知公告
+                                <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
+                              </h3>
+                              <ul class="article-content">
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 1</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
+                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                       </div>
+                  </div>
+                  
                 </div>
-            </div>
+              </div>
+              
+              <div class="text-center" id="footer">
+                  <p class="copyright">
+                    COPYRIGHT 2019-{:date('Y')} By 
+                    <a href="https://jskx.zhku.edu.cn/" target="_blank">仲恺计科</a>
+                    ALL RIGHTS RESERVED
+                  </p>
+              </div>
         </div>
         {include file="common/script" /}
     </body>

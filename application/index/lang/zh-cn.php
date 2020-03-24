@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Keep login'                                  => '保持会话',
+    'Keep login'                                  => '记住密码',
     'Sign in'                                     => '登入',
     'Username'                                    => '用户名',
     'User id'                                     => '会员ID',
@@ -11,7 +11,7 @@ return [
     'Sign up'                                     => '注 册',
     'Sign in'                                     => '登 录',
     'Sign out'                                    => '注 销',
-    'Keep login'                                  => '保持会话',
+    'Keep login'                                  => '记住密码',
     'Guest'                                       => '游客',
     'Welcome'                                     => '%s，你好！',
     'Add'                                         => '添加',

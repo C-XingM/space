@@ -174,8 +174,13 @@ table.table-template {
   font-weight: normal;
 }
 .user-panel > .image img {
-  width: 45px;
-  height: 45px;
+  width: 80px;
+  height: 80px;
+}
+.user-panel > .nickname p {
+  color: #fff;
+  font-size: 15px;
+  margin: 8.5px 0 0 0;
 }
 /*panel扩展描述样式*/
 .panel-intro {
@@ -377,6 +382,9 @@ table.table-template {
 .sidebar-collapse .user-panel > .image img {
   width: 25px;
   height: 25px;
+}
+.sidebar-collapse .user-panel > .nickname p {
+  display: none;
 }
 @media (min-width: 768px) {
   .sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {

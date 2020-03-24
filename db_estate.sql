@@ -459,7 +459,7 @@ CREATE TABLE `es_config` (
 -- ----------------------------
 -- Records of es_config
 -- ----------------------------
-INSERT INTO `es_config` VALUES ('1', 'name', 'basic', 'Site name', '请填写站点名称', 'string', '至简物业管理系统', '', 'required', '');
+INSERT INTO `es_config` VALUES ('1', 'name', 'basic', 'Site name', '请填写站点名称', 'string', '仲恺场地申请管理系统', '', 'required', '');
 INSERT INTO `es_config` VALUES ('2', 'beian', 'basic', 'Beian', '粤ICP备15054802号-4', 'string', '', '', '', '');
 INSERT INTO `es_config` VALUES ('3', 'cdnurl', 'basic', 'Cdn url', '如果使用CDN云储存请配置该值', 'string', '', '', '', '');
 INSERT INTO `es_config` VALUES ('4', 'version', 'basic', 'Version', '如果静态资源有变动请重新配置该值', 'string', '1.0.1', '', 'required', '');

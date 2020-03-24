@@ -340,19 +340,23 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                         Using: 'success',
                         Sale: 'success',
                         Valid: 'success',
+                        Valid1: 'grey',
                         NoAnonymity: 'success',
                         Anonymity: 'grey',
                         UnRead: 'grey',
                         Read: 'success',
                         Lease: 'danger',
                         Idling: 'grey',
-                        InValid: 'grey',
+                        InValid: 'danger',
                         Pending: 'danger',
                         Handling: 'success',
                         Solved: 'info',
                         hidden: 'grey',
                         deleted: 'danger',
-                        locked: 'info'
+                        locked: 'info',
+                        Teaching: 'blue',
+                        Recreational: 'yellow',
+                        Others: 'aqua'
                     };
                     //如果字段列有定义custom
                     if (typeof this.custom !== 'undefined') {
@@ -365,6 +369,24 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                     var html = '<span class="text-' + color + '"><i class="fa fa-circle"></i> ' + __(value) + '</span>';
                     return html;
                 },
+                types: function (value, row, index) {
+                  //颜色状态数组,可使用red/yellow/aqua/blue/navy/teal/olive/lime/fuchsia/purple/maroon
+                  var colorArr = {
+                      Teaching: 'blue',
+                      Recreational: 'yellow',
+                      Others: 'aqua'
+                  };
+                  //如果字段列有定义custom
+                  if (typeof this.custom !== 'undefined') {
+                      colorArr = $.extend(colorArr, this.custom);
+                  }
+                  value = value.toString();
+                  var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : 'primary';
+                  value = value.charAt(0).toUpperCase() + value.slice(1);
+                  //渲染状态
+                  var html = '<span class="text-' + color + '">' + __(value) + '</span>';
+                  return html;
+              },
                 url: function (value, row, index) {
                     return '<div class="input-group input-group-sm" style="width:250px;"><input type="text" class="form-control input-sm" value="' + value + '"><span class="input-group-btn input-group-sm"><a href="' + value + '" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-link"></i></a></span></div>';
                 },
@@ -424,7 +446,7 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                     // 默认按钮组
                     var buttons = $.extend([], this.buttons || []);
                     buttons.push({name: 'dragsort', icon: 'fa fa-arrows', classname: 'btn btn-xs btn-primary btn-dragsort'});
-                    buttons.push({name: 'detail', icon: 'fa fa-search', classname: 'btn btn-xs btn-primary btn-detailone'});
+                    buttons.push({name: 'detail', icon: 'fa fa-eye', classname: 'btn btn-xs btn-primary btn-detailone'});
                     buttons.push({name: 'edit', icon: 'fa fa-pencil', classname: 'btn btn-xs btn-success btn-editone'});
                     buttons.push({name: 'del', icon: 'fa fa-trash', classname: 'btn btn-xs btn-danger btn-delone'});
                     var html = [];

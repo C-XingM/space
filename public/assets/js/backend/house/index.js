@@ -20,7 +20,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 escape: false,
                 pk: 'id',
-                sortName: 'community_code,building_code,enter_time',
+                sortName: 'community_code,building_code,create_time',
                 sortOrder: 'asc,asc,desc',
                 pagination: true,
                 pageSize: 10,

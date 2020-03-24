@@ -23,12 +23,28 @@ class Member extends Model {
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
 
+    /**
+     * 获取编号最大值
+     * @return string
+     */
+    public function getMaxCode() {
+        $codePrefix = 'HS';
+        $defaultCode = sprintf('%s%05s',date('Ymd'),'1');
+        $maxCode = $this->max('code',0,false);
+        if ($maxCode) {
+            $maxCode = str_replace($codePrefix,'',$maxCode)+1;
+        } else {
+            $maxCode = $defaultCode;
+        }
+        return sprintf('%s%s',$codePrefix,$maxCode);
+    }
+
     public function community(){
         return $this->belongsTo('Community','community_code','code');
     }
 
-    public function house(){
-        return $this->belongsTo('House','house_code','code');
+    public function building(){
+        return $this->belongsTo('Building','building_code','code');
     }
 
     /**
@@ -41,46 +57,72 @@ class Member extends Model {
         return $result;
     }
 
-    /**
-     * 根据小区编号，获取人员列表
-     * @param $cmCode
-     * @return false|\PDOStatement|string|\think\Collection
-     */
-    public function getMemberByCMCode($cmCode) {
-        $result = $this->where(array('community_code'=>$cmCode))->field('id,name')->select();
-        return $result;
-    }
-
-    /**
-     * 根据小区编号，获取人员id
-     * @param $cmCode
-     * @return array
-     */
-    public function getMemberIdByCMCode($cmCode) {
-        $result = $this->where(array('community_code'=>array('in',$cmCode)))->column('id');
-        return $result;
-    }
-
-    /**
-     * 判断指定的字段值是否已存在
-     * @param $key 待比对的数据库表字段名称
-     * @param $value 表字段值
-     * @param null $id 用户id，为空时，表示新记录，否则为已有记录
-     * @return bool
-     */
-    public function checkExists($key,$value,$id=null){
-        $where = array(
-            $key => $value
-        );
-        if ($id) {
-            $rs = $this->where(array('id'=>$id))->find();
-            //修改后的字段值如果与原值一致，忽略
-            if ($rs[$key] == $value) {
-                return false;
-            }
-        }
-        $count = $this->where($where)->count();
-        return $count>0 ? true : false;
-    }
-
 }
+
+//     // 开启自动写入时间戳字段
+//     protected $autoWriteTimestamp = 'int';
+//     // 定义时间戳字段名
+//     protected $createTime = 'create_time';
+//     protected $updateTime = 'update_time';
+
+//     public function community(){
+//         return $this->belongsTo('Community','community_code','code');
+//     }
+
+//     public function house(){
+//         return $this->belongsTo('House','house_code','code');
+//     }
+
+//     /**
+//      * 根据小区编号，获取房产列表
+//      * @param $cmCode
+//      * @return false|\PDOStatement|string|\think\Collection
+//      */
+//     public function getHouseByCMCode($cmCode) {
+//         $result = $this->where(array('community_code'=>$cmCode))->field('code,name')->select();
+//         return $result;
+//     }
+
+//     /**
+//      * 根据小区编号，获取人员列表
+//      * @param $cmCode
+//      * @return false|\PDOStatement|string|\think\Collection
+//      */
+//     public function getMemberByCMCode($cmCode) {
+//         $result = $this->where(array('community_code'=>$cmCode))->field('id,name')->select();
+//         return $result;
+//     }
+
+//     /**
+//      * 根据小区编号，获取人员id
+//      * @param $cmCode
+//      * @return array
+//      */
+//     public function getMemberIdByCMCode($cmCode) {
+//         $result = $this->where(array('community_code'=>array('in',$cmCode)))->column('id');
+//         return $result;
+//     }
+
+//     /**
+//      * 判断指定的字段值是否已存在
+//      * @param $key 待比对的数据库表字段名称
+//      * @param $value 表字段值
+//      * @param null $id 用户id，为空时，表示新记录，否则为已有记录
+//      * @return bool
+//      */
+//     public function checkExists($key,$value,$id=null){
+//         $where = array(
+//             $key => $value
+//         );
+//         if ($id) {
+//             $rs = $this->where(array('id'=>$id))->find();
+//             //修改后的字段值如果与原值一致，忽略
+//             if ($rs[$key] == $value) {
+//                 return false;
+//             }
+//         }
+//         $count = $this->where($where)->count();
+//         return $count>0 ? true : false;
+//     }
+
+// }

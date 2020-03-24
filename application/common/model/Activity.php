@@ -26,5 +26,14 @@ class Activity extends Model {
     public function community(){
         return $this->belongsTo('Community','community_code','code');
     }
+    public function building(){
+      return $this->belongsTo('Building','building_code','code');
+    }
+    public function house(){
+      return $this->belongsTo('House','house_code','code');
+    }
+    public function admin(){
+      return $this->belongsTo('Admin','admin_id','id');
+    }
 
 }

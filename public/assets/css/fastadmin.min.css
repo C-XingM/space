@@ -1311,7 +1311,10 @@ select.form-control {
 .input-group .input-group-addon {
   border-radius: 0;
   border-color: #d2d6de;
-  background-color: #fff;
+  background-color: #2a672d;
+}
+.input-group-addon>.glyphicon {
+  color: #fff;
 }
 /* button groups */
 .btn-group-vertical .btn.btn-flat:first-of-type,
