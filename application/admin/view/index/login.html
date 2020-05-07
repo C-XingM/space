@@ -1,243 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {include file="common/meta" /}
 
-        <style type="text/css">
-            *{
-              padding: 0;
-              margin: 0;
-            }
-            body {
-               background-color: #fff;
-            }
-            /* 头部 */
-            #header{
-              background:url('__CDN__/assets/img/loginbg3.jpg');
-              background-size:cover;
-              height: 150px;
-              /* background-size: 100% 100%; */
-              border-radius: 0;
-              margin-bottom: 15px;
-              position: relative;
-            }
-            .header-logo{
-              position: absolute;
-              line-height: 150px;
-              left: 48px;
-            }
-            .header-title{
-              font-size: 40px!important;
-              display: inline;
-              margin:0;
-            }
-            .header-time{
-              position: absolute;
-              right: 30px;
-              bottom: 10px;
-              font-size: 14px;
-              font-family: "微软雅黑";
-            }
-            /* 登录框 */
-            .login-well ,.article-well{
-               border: 1px solid #dcdcdc;
-               padding: 25px;
-               margin-bottom: 15px;
-            }
-            .login-screen .copyright {
-                text-align: center;
-            }
-            @media(max-width:767px) {
-                /* .login-screen {
-                    padding:0 20px;
-                } */
-            }
-            .profile-img-card {
-                width: 100px;
-                height: 100px;
-                margin: 10px auto;
-                display: block;
-                -moz-border-radius: 50%;
-                -webkit-border-radius: 50%;
-                border-radius: 50%;
-            }
-            .profile-name-card {
-                text-align: center;
-                font-family: 微软雅黑;
-                font-size: 16px;
-                color: #2a672d;
-                font-weight: bold;
-            }
+<head>
+  {include file="common/meta" /}
 
-            #loginbtn {
-              background-color: #2a672d;
-              border-radius: 0;
-            }
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
 
-            #login-form {
-                margin-top:20px;
-            }
-            #login-form .input-group {
-                margin-bottom:15px;
-            }
-            /* 通知公告 */
-            .article-well{
-               padding: 0;
-            }
-            .article-title {
-                margin: 0;
-                line-height: 45px;
-                font-size: 17px;
-                background-color: #2a672d;
-                padding: 0 25px;
-                color: #fff;
-                font-family: Microsoft YaHei;
-            }
-            .article-title>a>i{
-                position: absolute;
-                right: 25px;
-                line-height: 45px;
-                font-size:22px;
-                color: #fff;
-            }
-            .article-content {
-              padding: 10px 20px 20px;
-              margin: 0;
-            }
-            .article-content>li{ 
-              font-size: 14px;
-              border-bottom: 1px solid #ccc;
-              line-height: 2.3em;
-              padding-left: 4px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-            .article-content>li>a{
-              color:#000;
-              background: url('__CDN__/assets/img/dian.png') no-repeat left center;
-              padding-left: 20px;
-            }
-            .article-content>li>a:hover{
-              color:#3c8dbc;
-            }
-            /* 底部 */
-            #footer{
-              padding: 10px 0;
-              font-size: 14px;
-              background-color: #2a672d;
-            }
-            #footer>.copyright{
-              margin: 0;
-              color: #fff;
-              font-size: 14px;
-              font-family: "微软雅黑";
-            }
-            #footer>.copyright>a{
-              font-size: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="jumbotron text-center" id="header">
-                <img src="__CDN__/assets/img/d_banner_school.gif" alt="logo" class="header-logo visible-md visible-lg">
-                <h1 class="header-title">场地申请管理系统</h1>
-                <span class="header-time visible-md visible-lg">{:date('Y年m月d日 ')}{:__(date('星期w'))}</span>
-                <!-- <h1>我的第一个 Bootstrap 4 页面</h1>
-                <p>重置浏览器窗口大小查看效果！</p>  -->
-              </div>
-              <div class="container">
-                <div class="row"  style="margin-right: 0;">
-                  <div class="col-sm-3" style="padding:0;">
-                    <!-- 登录框 -->
-                    <div class="login-wrapper">
-                        <div class="login-screen">
-                            <div class="login-well">
-                                <div class="login-form">
-                                    <!-- <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png" /> {$site.name}-->
-                                    <p id="profile-name" class="profile-name-card" >{:__('ID login')}</p>
-                                    <form action="" method="post" id="login-form">
-                                        <div id="errtips" class="hide"></div>
-                                        {:token()}
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
-                                            <input type="text" class="form-control" id="pd-form-username" placeholder="{:__('Username')}" name="username" autocomplete="off" value="" data-rule="{:__('Username')}:required;username" />
-                                        </div>
-        
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
-                                            <input type="password" class="form-control" id="pd-form-password" placeholder="{:__('Password')}" name="password" autocomplete="off" value="" data-rule="{:__('Password')}:required;password" />
-                                        </div>
-        
-                                        <div class="form-group">
-                                            <label class="inline" for="keeplogin">
-                                                <input type="checkbox" name="keeplogin" id="keeplogin" value="1" />
-                                                {:__('Keep login')}
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-success btn-lg btn-block" id="loginbtn">{:__('Sign in')}</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- <p class="copyright"><a href="https://jskx.zhku.edu.cn/" target="_blank">Powered By 仲恺计科</a></p> -->
-                        </div>
+    body {
+      background-color: #fff;
+    }
+
+    /* 头部 */
+    #header {
+      background: url('__CDN__/assets/img/loginbg3.jpg');
+      background-size: cover;
+      height: 150px;
+      /* background-size: 100% 100%; */
+      border-radius: 0;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .header-logo {
+      position: absolute;
+      line-height: 150px;
+      left: 48px;
+    }
+
+    .header-title {
+      font-size: 40px !important;
+      display: inline;
+      margin: 0;
+    }
+
+    .header-time {
+      position: absolute;
+      right: 30px;
+      bottom: 10px;
+      font-size: 14px;
+      font-family: "微软雅黑";
+    }
+
+    /* 登录框 */
+    .login-well,
+    .article-well,
+    .chain-well {
+      border: 1px solid #dcdcdc;
+      padding: 25px;
+      margin-bottom: 15px;
+    }
+
+    .login-screen .copyright {
+      text-align: center;
+    }
+
+    .profile-img-card {
+      width: 100px;
+      height: 100px;
+      margin: 10px auto;
+      display: block;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+    }
+
+    .profile-name-card {
+      text-align: center;
+      font-family: 微软雅黑;
+      font-size: 16px;
+      color: #2a672d;
+      font-weight: bold;
+    }
+
+    #loginbtn {
+      background-color: #2a672d;
+      border-radius: 0;
+    }
+
+    #login-form {
+      margin-top: 20px;
+    }
+
+    #login-form .input-group {
+      margin-bottom: 15px;
+    }
+
+    /* 通知公告  友情链接*/
+    .article-well,.chain-well {
+      padding: 0;
+    }
+
+    .article-title,.chain-title {
+      margin: 0;
+      line-height: 45px;
+      font-size: 17px;
+      background-color: #2a672d;
+      padding: 0 25px;
+      color: #fff;
+      font-family: Microsoft YaHei;
+    }
+
+    .article-title>a>i,.chain-title>a>i {
+      position: absolute;
+      right: 25px;
+      line-height: 45px;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .article-content{
+      padding: 10px 20px 20px;
+      margin: 0;
+    }
+
+    .article-content>li {
+      font-size: 14px;
+      border-bottom: 1px solid #ccc;
+      line-height: 2.3em;
+      padding-left: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .article-content>li>a {
+      color: #000;
+      background: url('__CDN__/assets/img/dian.png') no-repeat left center;
+      padding-left: 10px;
+    }
+
+    .article-content>li>a:hover {
+      color: #3c8dbc;
+    }
+
+    .chain-content {
+      padding: 10px 20px;
+      margin: 0;
+    }
+
+    .chain-content>li {
+      font-size: 14px;
+      line-height: 2em;
+      padding-left: 0px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .chain-content>li>a {
+      color: #000;
+      padding-left: 10px;
+    }
+
+    .chain-content>li>a:hover,.chain-content>li>i{
+      color: #3c8dbc;
+    }
+    
+    
+    /* 底部 */
+    #footer {
+      padding: 10px 0;
+      font-size: 14px;
+      background-color: #2a672d;
+    }
+
+    #footer>.copyright {
+      margin: 0;
+      color: #fff;
+      font-size: 14px;
+      font-family: "微软雅黑";
+    }
+
+    #footer>.copyright>a {
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 顶部 -->
+    <div class="jumbotron text-center" id="header">
+      <img src="__CDN__/assets/img/d_banner_school.gif" alt="logo" class="header-logo visible-md visible-lg">
+      <h1 class="header-title">场地申请管理系统</h1>
+      <span class="header-time visible-md visible-lg">{:date('Y年m月d日 ')}{:__(date('星期w'))}</span>
+    </div>
+    <!-- 主要内容 -->
+    <div class="container">
+      <div class="row" style="margin-right: 0;">
+        <!-- 侧边栏（左边） -->
+        <div class="col-sm-3" style="padding:0;">
+          <!-- 登录框 -->
+          <div class="login-wrapper">
+            <div class="login-screen">
+              <div class="login-well">
+                <div class="login-form">
+                  <!-- <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png" /> {$site.name}-->
+                  <p id="profile-name" class="profile-name-card">{:__('ID login')}</p>
+                  <form action="" method="post" id="login-form">
+                    <div id="errtips" class="hide"></div>
+                    {:token()}
+                    <div class="input-group">
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      </div>
+                      <input type="text" class="form-control" id="pd-form-username" placeholder="{:__('Username')}"
+                        name="username" autocomplete="off" value="" data-rule="{:__('Username')}:required;username" />
                     </div>
-                    <!-- 公告文章 -->
-                    <div class="article-wrapper">
-                        <div class="article-screen">
-                          <div class="article-well">
-                            <h3 class="article-title">通知公告
-                              <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
-                            </h3>
-                            <ul class="article-content">
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 1</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                              <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                     </div>
-                  </div>
 
-                  <div class="col-sm-9">
-                      <div class="article-wrapper">
-                          <div class="article-screen">
-                            <div class="article-well">
-                              <h3 class="article-title">通知公告
-                                <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
-                              </h3>
-                              <ul class="article-content">
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 1</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 2</a></li>
-                                <li><a href="#">教字〔2020〕19号，关于组织开展教育部第二批新工科研究与实践项目遴选推荐的通知 3</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                       </div>
-                  </div>
-                  
+                    <div class="input-group">
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                      </div>
+                      <input type="password" class="form-control" id="pd-form-password" placeholder="{:__('Password')}"
+                        name="password" autocomplete="off" value="" data-rule="{:__('Password')}:required;password" />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="inline" for="keeplogin">
+                        <input type="checkbox" name="keeplogin" id="keeplogin" value="1" />
+                        {:__('Keep login')}
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success btn-lg btn-block" id="loginbtn">{:__('Sign in')}</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-              
-              <div class="text-center" id="footer">
-                  <p class="copyright">
-                    COPYRIGHT 2019-{:date('Y')} By 
-                    <a href="https://jskx.zhku.edu.cn/" target="_blank">仲恺计科</a>
-                    ALL RIGHTS RESERVED
-                  </p>
+              <!-- <p class="copyright"><a href="https://jskx.zhku.edu.cn/" target="_blank">Powered By 仲恺计科</a></p> -->
+            </div>
+          </div>
+          <!-- 公告文章 -->
+          <div class="article-wrapper">
+            <div class="article-screen">
+              <div class="article-well">
+                <h3 class="article-title">{:__('Notify article')}
+                  <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
+                </h3>
+                <ul class="article-content">
+                  <li><a href="#">【众志成城】我校工商管理学院召开境外师生线上交流会</a></li>
+                  <li><a href="#">学校党委理论学习中心组学习贯彻《党委（党组）落实全面从严治党主体责任规定》精神</a></li>
+                  <li><a href="#">学校校董、广东恒兴饲料实业股份有限公司董事长陈丹先生向学校捐助2000万元人才引进专项资金</a></li>
+                  <li><a href="#">学校组织参加全省教育系统全面从严治党工作视频会议</a></li>
+                  <li><a href="#">程萍校长带队拜访白云区区委、区政府</a></li>
+                  <li><a href="#">学校纪委召开专职纪检监察干部学习会</a></li>
+                  <li><a href="#">学校召开安全生产工作领导小组扩大会议</a></li>
+                </ul>
               </div>
+            </div>
+          </div>
+          <!-- 友情链接 -->
+          <div class="chain-wrapper">
+              <div class="chain-screen">
+                <div class="chain-well">
+                  <h3 class="chain-title">{:__('School chain')}</h3>
+                  <ul class="chain-content">
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="https://www.zhku.edu.cn/" target="_blank" >学校官网</a></li>
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="http://jw.zhku.edu.cn/home.aspx" target="_blank" >学校教务网络管理系统</a></li>
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="https://jskx.zhku.edu.cn/" target="_blank" >学校图书馆</a></li>
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="http://job.zhku.edu.cn/unijob/index.php/web/Index/index" target="_blank" >学校就业指导中心</a></li>
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="http://yz.kaoyan.com/zhku/" target="_blank" >学校官网研究生院</a></li>
+                    <li><i class="fa fa-chain-broken" aria-hidden="true"></i><a href="https://jskx.zhku.edu.cn/" target="_blank" >学校课程中心</a></li>
+                  </ul>
+                </div>
+              </div>
+          </div>
         </div>
-        {include file="common/script" /}
-    </body>
+        <!-- 侧边栏（右边） -->
+        <div class="col-sm-9">
+          <div class="article-wrapper">
+            <div class="article-screen">
+              <div class="article-well" style="padding: 25px 15px;">
+                <div class="main">
+                  <br>
+                  <div class="detail-box">
+                    <div class="text-center">
+                      <h3 class="detail-title" style="font-weight: 600;">【众志成城】我校工商管理学院召开境外师生线上交流会</h3>
+                    <div class="detail-infor"style="color:#888888;">
+                      <span>发布者：吴谦 </span><span>发布日期：2020/03/26</span>
+                    </div>
+                    </div>
+                    &nbsp;
+                    <div id="vsb_content text-left" style="font-size:16px!important;">
+                      <p style="text-align: center;">
+                        <p style="line-height: 33px;text-indent:2em;"><span
+                            style="font-family: 宋体; font-size: 16px;">工商管理学院现居境外的老师们分散于不同国家、地区，线上交流会上，大家跨越不同时区，分别介绍了所在国家、地区的防控现状。数据系教授、位于澳大利亚珀斯的吴昌质老师表示，当前，澳洲采取了较为严格的防控措施，当地防控物资较为紧缺，自己主要是居家防控。创新与战略系讲师、位于韩国首尔的詹茜老师表示，目前她在韩国的生活工作一切正常，当地防疫物资供应也逐渐转好。詹老师请学院师生们放心：“我出门必戴口罩，实施各种消毒举措，自己的物资储备也比较齐全。”市场营销系主任张魁峯教授目前在台湾台南，他介绍了台湾的新冠肺炎确诊人数，表示当地疫情防控工作进展较好，自己的线上教学、生活安排都在有序推进中。老师们表示，接下来，将严格对照入境管理规定和防控流程安排好生活、工作，保障好返校前后教学工作的衔接。</span>
+                        </p>
+                        <p style="line-height: 33px;"><span
+                            style="font-family: 宋体; font-size: 16px;text-indent:2em">“校党委书记屈哨兵十分牵念、关心大家。你们安好，我们就放心了。”
+                            工商管理学院党委负责人在视频连线中向老师们介绍了学校疫情防控工作的进展情况和相关的管理规定，希望大家将生命安全和身体健康放在首位，多多保重、做好防护，及时与学校、学院沟通信息，继续保持好的状态。</span>
+                        </p>
+                        <p style="line-height: 33px;"><span style="font-family: 黑体, SimHei;"><strong><span
+                                style="font-size: 16px;">从抗击疫情中汲取力量</span></strong></span></p>
+                        <p style="line-height: 33px;"><span
+                            style="font-family: 宋体; font-size: 16px;">自防控新冠肺炎疫情以来，身居境外的工商学子们一直在关注抗疫进展。“我生活上有一定的储备，半个月出门一次，大使馆也有提供援助渠道，各方面状态不错。”在读博士生李晓靖参加了我校与意大利帕多瓦大学的联合培养项目，当前正在帕多瓦。她表示，帕多瓦市的疫情控制状况较好，自己与国内的博导每周联系、正常开展科研。随着中国疫情的好转，中国的抗疫经验也得到了越来越多意大利民众的认可。2018级在读硕士研究生、现在澳大利亚墨尔本的汤晓玲表示，当地防护物品较为匮乏，自己每两周外出采购一次，多数时间居家学习。参与我校联合培养“2+2”本科项目，赴英国卡迪夫大学学习的吴浚桦、李扬、袁奕丰、容懿四位同学中，吴浚桦、李扬已回到国内、正积极配合当地政府实施隔离，仍在英国的袁奕丰、容懿两位同学就储备物资、自我防护的情况进行了汇报。现居韩国首尔、人力162班的高艺娜同学和现居美国加州萨克拉门托的林颖源同学也分别结合当地防控举措讲述了自己的学习生活情况。</span>
+                        </p>
+                        <p style="line-height: 33px;"><span
+                            style="font-family: 宋体; font-size: 16px;">“疫情突如其来，你们每个人都是我们最牵挂的人。”视频连线中，工商管理学院党委传达了校党委对身处境外同学们的关心、挂念，学院领导、辅导员老师等仔细询问了解同学们居家防控、学习生活的状况，在轻松交流的氛围中帮助同学们放松心情，为同学们加油打气，希望身处境外的同学们从国家全民抗疫中汲取精神力量，加强思考、立志向学、担当有为。同学们纷纷表示，自抗击疫情以来，通过各类报道了解了前线医护人员、我校师生等的抗疫行动，深受感动。此次线上交流会传递了关心和暖意，十分感谢学校、学院和老师们的关爱，将继续做好防控，努力学习，力所能及承担社会责任，保持好的状态迎接正式返校。</span>
+                        </p>
+                        <p style="line-height: 33px;"><span style="font-family: 宋体; font-size: 16px;"><br></span></p>
+                        <p class="MsoListParagraph"
+                          style="margin: 0px 0px 0px 24px; line-height: 150%; text-indent: 0px;"><span
+                            style="line-height: 150%; font-family: FangSong; font-size: 21px;">&nbsp;</span></p>
+                        <p>&nbsp;</p>
+                    </div>
+
+                  </div>
+                  </form>
+                  <!--#endeditable-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="text-center" id="footer">
+      <p class="copyright">
+        COPYRIGHT 2019-{:date('Y')} By
+        <a href="https://jskx.zhku.edu.cn/" target="_blank">仲恺计科</a>
+        ALL RIGHTS RESERVED
+      </p>
+    </div>
+  </div>
+  {include file="common/script" /}
+</body>
+<!-- <script>
+ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'table', 'echarts', 'echarts-theme', 'template', 'form'], function ($, undefined, Backend, Datatable, Table, Echarts, undefined, Template, Form) {
+  var Controller = {
+    index: function () {
+      Controller.getRepair();
+    },
+    getRepair: function () {
+      $.ajax({
+        url: "dashboard/get_repair",
+        type: "post",
+        dataType: "html",
+        success: function (ret) {
+          $("#article-title").html(ret);
+          $("#article-title").find("a").bind("click",function () {
+            var url = $(this).attr("src");
+            Controller.showDetail(url,"公告文章",['100%','100%']);
+          });
+        }
+      });
+    },
+    $.ajax({
+        url: 'dashboard/get_repair', //也可以用$.getJSON()
+        dataType: "json", //返回json数据    
+        success: ArticleData
+    });
+
+
+
+
+      function ArticleData(data) {
+      var row=0;
+      var x = (8<=data.length)?7:data.length;
+      <li><a href="#"></a></li>
+      for (var i = 0 ; i < x; i++,row++) {
+          var txt1 = $("<li></li>");
+          var txt2 = $("<a></a>");
+          txt2.attr("href", "javascript:;");
+          txt1.append(txt2);
+          $("#article-title").append(txt1);
+      }
+    }
+  };
+  return Controller;
+});
+  
+</script> -->
 </html>

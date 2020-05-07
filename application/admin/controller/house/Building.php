@@ -3,13 +3,7 @@ namespace app\admin\controller\house;
 
 use app\common\controller\Backend;
 
-/**
- * Created by PhpStorm.
- * FileName: Index.php
- * User: Administrator
- * Date: 2017/11/01
- * Time: 13:42
- */
+/* 场地类型管理 */
 
 class Building extends Backend {
 
@@ -82,7 +76,6 @@ class Building extends Backend {
         $result = array("total" => $total, "rows" => $list);
         return json($result);
     }
-
     /**
      * 自定义搜索
      * @return array

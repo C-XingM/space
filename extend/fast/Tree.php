@@ -26,7 +26,9 @@ class Tree
      * 生成树型结构所需修饰符号，可以换成图片
      * @var array
      */
-    public $icon = array('│', '├', '└');
+    //public $icon = array('│', '├', '└');
+    //public $nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    public $icon = array('', '', '');
     public $nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;";
     public $pidname = 'pid';
 
@@ -354,7 +356,7 @@ class Tree
                 $value = array(
                     '@childlist' => $childlist,
                     '@url'       => $childdata || !isset($value['@url']) ? "javascript:;" : url($value['@url']),
-                    '@caret'     => ($childdata && (!isset($value['@badge']) || !$value['@badge']) ? '<i class="fa fa-angle-left"></i>' : ''),
+                    '@caret'     => ($childdata && (!isset($value['@badge']) || !$value['@badge']) ? '<i class="fa fa-angle-right"></i>' : ''),
                     '@badge'     => isset($value['@badge']) ? $value['@badge'] : '',
                     '@class'     => ($selected ? ' active' : '') . ($disabled ? ' disabled' : '') . ($childdata ? ' treeview' : ''),
                 );

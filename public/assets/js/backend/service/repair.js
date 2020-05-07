@@ -13,9 +13,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                     table: 'service',
                     //设置不同操作下的弹窗宽高
                     area: {
-                        add:['800px','400px'],
-                        edit:['800px','400px'],
-                        detail:['800px','400px']
+                        add:['100%','100%'],
+                        edit:['100%','100%'],
+                        detail:['100%','100%']
                     }
                 }
             });
@@ -31,7 +31,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 sortOrder: 'desc',
                 pagination: true,
                 pageSize: 10,
+                //searchFormVisible: true,
+                //search:false,
                 commonSearch: false,
+                exportDataType: 'selected',
                 queryParams: function queryParams(params) {
                     var searchForm = $("form[role=form]");
                     if(searchForm.length){
@@ -48,26 +51,36 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
-                        {field: 'community', title: __('Community'), formatter: function (community) {
-                            if(community) {
-                                return community.name;
+                        {field: 'no',title: __('TableID'),operate: false,align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
+                        {field: 'admin', title: __('Admin'), formatter: function (admin) {
+                          if(admin) {
+                              return admin.nickname+"("+admin.username+")";
+                          }
+                          return '';
+                        }},
+                        {field: 'author', title: __('Author')},
+                        {field: 'device_name', title: __('DeviceName'), //operate: false,
+                            cellStyle: function (value, row, index) {
+                                  return {
+                                      css: {
+                                          "max-width": "250px",
+                                          "white-space": "nowrap",
+                                          "text-overflow": "ellipsis",
+                                          "overflow": "hidden"
+                                      }
+                                  }
                             }
-                            return '';
-                        }},
-                        {field: 'member', title: __('Member'), formatter: function (member) {
-                            if(member) {
-                                return member.name;
-                            }
-                            return '';
-                        }},
-                        {field: 'device_name', title: __('DeviceName'), operate: false},
-                        {field: 'desc', title: __('Desc'), operate: false},
-                        {field: 'status', title: __('Status'), operate: false, formatter: function (value) {
-                            var statuses = ['Pending','Handling','Solved'];
-                            return Table.api.formatter.status(statuses[value]);
-                        }},
-                        {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.datetime},
+                        },
+                        {field: 'create_time', title: __('CreateTime'),operate: false,formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]

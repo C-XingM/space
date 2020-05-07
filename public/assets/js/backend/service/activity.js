@@ -61,15 +61,16 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                               return pageSize * (pageNumber - 1) + index + 1;
                           }
                         },
+                        {field: 'id', title: __('申请编号')},
                         {field: 'admin', title: __('Admin'), formatter: function (admin) {
                           if(admin) {
                               return admin.nickname+"("+admin.username+")";
                           }
                           return '';
                         }},
-                        {field: 'tel', title: __('Tel'), operate: false},
-                        {field: 'sponsor_unit', title: __('SponsorUnit'), operate: false},
-                        {field: 'title', title: __('Title'), operate: false},
+                        //{field: 'tel', title: __('Tel'), operate: false},
+                        //{field: 'sponsor_unit', title: __('SponsorUnit'), operate: false},
+                        //{field: 'title', title: __('Title'), operate: false},
                         {field: 'type', title: __('Type'), operate: false, formatter: function (value) {
                           var types = ['Teaching','Recreational','Others']
                           return Table.api.formatter.types(types[value]);
@@ -120,6 +121,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
         },
         add: function () {
             var editor = UE.getEditor('container');
+             Controller.handleCommunityState();
+            $("#community_code").change();
+            $("#building_code").change();
             Controller.api.bindevent();
         },
         edit: function () {
@@ -132,7 +136,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
             }
         },
         handleCommunityState: function (showAll) {
-          var building_id = $("#building_id").val();
+           var building_id = $("#building_id").val();
           $("#community_code").bind("change",function(){
               var community_code = $(this).val();
               $.ajax({
@@ -161,6 +165,38 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                           liveSearch:true
                       });
                       $("#building_code").selectpicker("refresh");
+                  }
+              });
+          });
+          var house_id = $("#house_id").val();
+          $("#building_code").bind("change",function(){
+              var building_code = $(this).val();
+              $.ajax({
+                  type: "POST",
+                  url: 'house/index/get_house_by_cm_code',
+                  async: true,
+                  cache: false,
+                  dataType : "json",
+                  data: {building_code:building_code},
+                  success: function(data) {
+                      var house = data.house;
+
+                      var houseHtml = showAll ? '<option value="">全部</option>' : '';
+                      $.each(house,function(index,item){
+                          houseHtml += '<option value="'+item.code+'">'+item.name+'</option>';
+                      });
+                      if(houseHtml == ''){
+                          houseHtml = '<option value="">没有任何选中项</option>';
+                      }
+                      $("#house_code").html(houseHtml);
+                      if (house_id) {
+                          $("#house_code").val(house_id);
+                      }
+                      $("#house_code").selectpicker({
+                          showTick:true,
+                          liveSearch:true
+                      });
+                      $("#house_code").selectpicker("refresh");
                   }
               });
           });

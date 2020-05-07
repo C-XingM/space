@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Custom'                => '自定义',
+    'Article'               => '公告文章',
     'Pid'                   => '父ID',
     'Type'                  => '栏目类型',
     'Image'                 => '图片',
@@ -28,7 +28,7 @@ return [
     'Comment count'         => '评论次数',
     'Like count'            => '点赞次数',
     'Recent activity'       => '最新活动',
-    'Recent repair'         => '最新报修',
+    'Recent repair'         => '公告文章',
     'Server info'           => '服务器信息',
     'PHP version'           => 'PHP版本',
     'Fastadmin version'     => 'FastAdmin版本',

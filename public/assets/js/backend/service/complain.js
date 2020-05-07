@@ -13,9 +13,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                     table: 'service',
                     //设置不同操作下的弹窗宽高
                     area: {
-                        add:['800px','450px'],
-                        edit:['800px','450px'],
-                        detail:['800px','450px']
+                        add:['800px','400px'],
+                        edit:['800px','400px'],
+                        detail:['800px','400px']
                     }
                 }
             });
@@ -27,8 +27,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 escape: false,
                 pk: 'id',
-                sortName: 'create_time',
-                sortOrder: 'desc',
+                sortName: 'is_readswitch,create_time',
+                sortOrder: 'asc,desc',
                 pagination: true,
                 pageSize: 10,
                 commonSearch: false,
@@ -48,29 +48,65 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
+                        //{field: 'id', title: __('Id')},
+                        {
+                          field: 'no',
+                          title: __('TableID'),
+                          align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
+                        {field: 'admin', title: __('Admin'), formatter: function (admin) {
+                          if(admin) {
+                              return admin.nickname+"("+admin.username+")";
+                          }
+                          return '';
+                        }},
                         {field: 'community', title: __('Community'), formatter: function (community) {
                             if(community) {
                                 return community.name;
                             }
                             return '';
                         }},
-                        {field: 'member', title: __('Member'), formatter: function (member) {
-                            if(member) {
-                                return member.name;
+                        {field: 'reason', title: __('Reason'), 
+                          cellStyle: function (value, row, index) {
+                            return {
+                                css: {
+                                    "min-width": "100px",
+                                    "white-space": "nowrap",
+                                    "text-overflow": "ellipsis",
+                                    "overflow": "hidden",
+                                    "max-width": "200px"
+                                }
                             }
-                            return '';
-                        }},
-                        {field: 'title', title: __('Title'), operate: false},
-                        {field: 'reason', title: __('Reason'), operate: false},
-                        {field: 'is_anonymity', title: __('IsAnonymity'), operate: false, formatter: function (value) {
-                            var types = ['NoAnonymity','Anonymity'];
-                            return Table.api.formatter.status(types[value]);
-                        }},
+                          },
+                          formatter: function (value, row, index) {
+                              //return "" + value + "";
+                              var span=document.createElement("span");
+                              span.setAttribute("title",value);
+                              span.innerHTML = value;
+                              return span.outerHTML;
+                          },
+                          operate: false},
+                        {field: 'is_readswitch', title: __('IsReadswitch'), 
+                          operate: false, 
+                          formatter: function (value) {
+                              var types = ['NoAnonymity','Anonymity'];
+                              return Table.api.formatter.status(types[value]);
+                          }
+                          //formatter: Table.api.formatter.toggle
+                        },
                         {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
-                ]
+                ],
+                search: false
             });
 
             // 为表格绑定事件
@@ -94,7 +130,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
         },
         api: {
             bindevent: function () {
-                Form.api.bindevent($("form[role=form]"));
+            //   $(document).on('click', "input[name='row[is_readswitch]']", function () {
+            //     var name = $("input[name='row[name]']");
+            //     name.prop("placeholder", $(this).val() == 1 ? name.data("placeholder-menu") : name.data("placeholder-node"));
+            // });
+            // $("input[name='row[is_readswitch]']:checked").trigger("click");
+            Form.api.bindevent($("form[role=form]"));
+                // Form.api.bindevent($("form[role=form]"));
             }
         }
     };

@@ -20,18 +20,16 @@
             <input type="text" class="form-control" id="name" name="row[name]" value="{$row.name}" data-rule="required" />
         </div>
     </div>
-    <!-- <div class="form-group">
-        <label for="house" class="control-label col-xs-12 col-sm-2">{:__('House')}:</label>
+    <div class="form-group">
+        <label for="c-thumb" class="control-label col-xs-12 col-sm-2">{:__('缩略图')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="house" name="row[house]" value="{$row.house}" data-rule="required;digits" />
+            <div class="form-inline">
+                <input id="c-thumb" class="form-control" size="50" name="row[thumb]" type="hidden" value="{$row.thumb}"">
+                <span><button id="plupload-image" class="btn btn-danger plupload" data-input-id="c-thumb" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-preview-id="p-thumb"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                <ul class="row list-inline plupload-preview" id="p-thumb"></ul>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="desc" class="control-label col-xs-12 col-sm-2">{:__('Desc')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="desc" name="row[desc]" value="{$row.desc}" />
-        </div>
-    </div> -->
     <div class="form-group hide layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">

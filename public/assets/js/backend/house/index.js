@@ -9,7 +9,15 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                     add_url: 'house/index/add',
                     edit_url: 'house/index/edit',
                     del_url: 'house/index/del',
-                    table: 'house'
+                    detail_url: 'house/index/detail',
+                    table: 'house',
+                    area: {
+                      area: {
+                        add:['800px','420px'],
+                        edit:['800px','420px'],
+                        detail:['800px','420px']
+                    }
+                  }
                 }
             });
 
@@ -41,7 +49,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
+                        //{field: 'id', title: __('Id')},
+                        {
+                          field: 'no',
+                          title: __('TableID'),
+                          align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
+                        {field: 'thumb', title: __('缩略图'), operate: false, formatter: Table.api.formatter.image},
                         {field: 'community', title: __('Community'), formatter: function (community) {
                             if(community) {
                                 return community.name;
@@ -56,12 +78,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                         }},
                         {field: 'code', title: __('Code'), operate: false},
                         {field: 'name', title: __('Name'), operate: false},
-                        // {field: 'owner_name', title: __('OwnerName'), operate: false},
-                        // {field: 'owner_tel', title: __('OwnerTel'), operate: false},
-                        // {field: 'rooms', title: __('Rooms'), operate: false},
-                        // {field: 'unit', title: __('Unit'), operate: false},
-                        // {field: 'floor', title: __('Floor'), operate: false},
-                        // {field: 'desc', title: __('Desc'), operate: false},
                         {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.date},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]

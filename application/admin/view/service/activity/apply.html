@@ -1,0 +1,95 @@
+<style type="text/css">
+  #schedulepicker {
+    padding-top: 7px;
+  }
+</style>
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+
+  <div class="form-group">
+    <label for="community_code" class="control-label col-xs-12 col-sm-2">{:__('Community')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control" id="title" name="row[community_code]" value="{$community.name}"  disabled="disabled"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="building_code" class="control-label col-xs-12 col-sm-2">{:__('场地类型')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control" id="title" name="row[building_code]" value="{$building.name}"  disabled="disabled"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="house_code" class="control-label col-xs-12 col-sm-2">{:__('场地位置')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control" id="title" name="row[house_code]" value="{$house.name}"  disabled="disabled"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="begin_time" class="control-label col-xs-12 col-sm-2">{:__('BeginTime')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="begin_time" name="row[begin_time]" value="{$Think.session.time.s_time}" data-rule="datetime"  disabled="disabled"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="end_time" class="control-label col-xs-12 col-sm-2">{:__('EndTime')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="end_time" name="row[end_time]" value="{$Think.session.time.e_time}" data-rule="datetime"  disabled="disabled"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="admin_id" class="control-label col-xs-12 col-sm-2">{:__('Admin')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="title" name="row[admin_id]" value="{$admin.nickname}" disabled="disabled"/>
+      <!-- <select id="admin_id" class="form-control" name="row[admin_id]">
+      </select> -->
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="tel" class="control-label col-xs-12 col-sm-2">{:__('Tel')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="tel" name="row[tel]" value="{$row.tel}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="sponsor_unit" class="control-label col-xs-12 col-sm-2">{:__('SponsorUnit')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="sponsor_unit" name="row[sponsor_unit]" value="{$row.sponsor_unit}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="type" class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        {:build_radios('row[type]', ['1'=>__('Recreational')],$row['status'])}
+      <!-- <input type="text" class="form-control" id="type" name="row[type]" value="{$type[$row.type]}"/> -->
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="title" class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="title" name="row[title]" value="{$row.title}" data-rule="required" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="container" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <textarea class="form-control" id="container" name="row[content]" rows="5"></textarea>
+    </div>
+  </div>
+
+
+  <div class="form-group hide layer-footer">
+      <label class="control-label col-xs-12 col-sm-2"></label>
+      <div class="col-xs-12 col-sm-8">
+          <button type="submit" class="btn btn-success btn-embossed" onClick="closeLayerWin(this);location.reload();" >{:__('OK')}</button>
+          <button type="button" class="btn btn-default btn-embossed" onClick="closeLayerWin(this)">{:__('Close')}</button>
+      </div>
+  </div>
+
+</form>

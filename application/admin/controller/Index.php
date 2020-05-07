@@ -99,6 +99,15 @@ class Index extends Backend
         $this->success(__('Logout successful'), 'index/login');
     }
 
+    public function getRepair1() {
+      $list = Db::table("es_repair")->where($where)->select();
+      $list=array_merge($list);
+        
+      $total = count($list);
+      $result = array("total" => $total, "rows" => $list);
+      echo json($result);
+      return json($result);
+    }
    
 
 }

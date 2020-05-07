@@ -17,15 +17,16 @@ class Repair extends Backend {
     protected $model = null;
     protected $communityModel = null;
     //检索时匹配的字段
-    protected $searchfields = 'community_code,device_name';
+    protected $searchfields = 'admin_id,author,device_name,create_time';//'community_code,device_name';
     protected $noNeedRight = ['selectpage'];
 
     public function _initialize() {
         parent::_initialize();
         $this->model = model('Repair');
-        $this->communityModel = model('Community');
-        $this->view->assign('community',$this->communityModel->where(array('code'=>array('in',parent::getCommunityIdByAuth())))->field('code,name')->select());
-    }
+        // $this->communityModel = model('Community');
+        // $this->view->assign('community',$this->communityModel->where(array('code'=>array('in',parent::getCommunityIdByAuth())))->field('code,name')->select());
+        //$this->view->assign("status",  ['0'=>__('Pending'),'1'=>__('Handling')]);
+      }
 
     public function index() {
         //设置过滤方法
@@ -42,31 +43,29 @@ class Repair extends Backend {
 
     public function detail($ids = null) {
         $repair = $this->model->get($ids);
-        $member = model('Member')->where(array('id'=>$repair['member_id']))->find();
-        $this->view->assign('member',$member);
+        $admin1 = model('Admin')->where(array('id'=>$repair['admin_id']))->find();
+        $this->view->assign('admin1',$admin1);
         return parent::modify($ids);
     }
 
     public function add() {
-        if ($this->request->isPost()) {
-            $params = $this->request->post('row/a');
-            $admin = Session::get('admin');
-            $params['member_id'] = $admin['id'];
-            $this->request->post(array('row'=>$params));
-        }
+      if ($this->request->isPost()) {
+        $params = $this->request->post('row/a');
         $admin = Session::get('admin');
-        $this->view->assign('member',array('name' => $admin['nickname']));
+        $params['admin_id'] = $admin['id'];
+        $this->request->post(array('row'=>$params));
+      }
         return parent::create();
     }
 
     public function edit($ids = null) {
-        if ($this->request->isPost()) {
-            $params = $this->request->post("row/a");
-            $this->request->post(['row' => $params]);
-        }
-        $repair = $this->model->get($ids);
-        $member = model('Member')->where(array('id'=>$repair['member_id']))->find();
-        $this->view->assign('member',$member);
+      if ($this->request->isPost()) {
+        $params = $this->request->post("row/a");
+        $this->request->post(['row' => $params]);
+      }
+      $repair = $this->model->get($ids);
+      $admin1 = model('Admin')->where(array('id'=>$repair['admin_id']))->find();
+      $this->view->assign('admin1',$admin1);
         return parent::modify($ids,'add');
     }
 
@@ -82,13 +81,11 @@ class Repair extends Backend {
     }
 
     private function handleSearch($searchfields=null) {
-        $append = array(
-            array('community_code','in',parent::getCommunityIdByAuth())
-        );
         $append = array_merge($append,$this->buildCommonSearch());
         list($where, $sort, $order, $offset, $limit,$orderParams) = $this->buildparams($searchfields,null,$append);
         $total = $this->model->where($where)->count();
-        $list = $this->model->with('community,member')->where($where)->order($orderParams)->limit($offset, $limit)->select();
+        $list = $this->model->with('admin')->where($where)->order($orderParams)->limit($offset, $limit)->select();
+        //$list = $this->model->with('community,admin')->where($where)->order($orderParams)->limit($offset, $limit)->select();
         $result = array("total" => $total, "rows" => $list);
         return json($result);
     }

@@ -1,10 +1,9 @@
 <?php
 return [
+  'TableID'           => '序号',
     'Id'                => 'ID',
-    'Community'         => '所属小区',
-    'Code'              => '栋数编号',
-    'Name'              => '栋数名称',
-    // 'House'             => '总户数',
-    // 'Desc'              => '描述',
+    'Community'         => '所属校区',
+    'Code'              => '场地类型编号',
+    'Name'              => '场地类型名称',
     'CreateTime'        => '创建时间'
 ];

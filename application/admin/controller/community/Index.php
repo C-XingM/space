@@ -3,20 +3,14 @@ namespace app\admin\controller\community;
 
 use app\common\controller\Backend;
 
-/**
- * Created by PhpStorm.
- * FileName: Index.php
- * User: Administrator
- * Date: 2017/11/01
- * Time: 13:42
- */
+/* 校区管理 */
 
 class Index extends Backend {
 
     protected $model = null;
     protected $communityAdminModel = null;
     //检索时匹配的字段
-    protected $searchfields = 'code,name,address';//'code,name,address,developer,estate';
+    protected $searchfields = 'code,name,address';
     protected $noNeedRight = ['selectpage'];
 
     public function _initialize() {
@@ -26,6 +20,11 @@ class Index extends Backend {
         $admins = model('Admin')->where(array('status'=>'normal'))->column('id,concat(nickname,\' [\',username,\']\') as name');
         $this->view->assign('admins',$admins);
     }
+
+    public function detail($ids = null) {
+      $this->view->assign('selectedAdmins',$this->communityAdminModel->getManager($ids));
+      return parent::modify($ids);
+   }
 
     public function index() {
         //设置过滤方法
@@ -38,11 +37,6 @@ class Index extends Backend {
             return $this->handleSearch($this->searchfields);
         }
         return $this->view->fetch();
-    }
-
-    public function detail($ids = null) {
-        $this->view->assign('selectedAdmins',$this->communityAdminModel->getManager($ids));
-        return parent::modify($ids);
     }
 
     public function add() {
@@ -59,7 +53,7 @@ class Index extends Backend {
             $params = $this->request->post("row/a");
             $this->request->post(['row' => $params]);
         }
-        $this->view->assign('selectedAdmins',$this->communityAdminModel->getManager($ids));
+        //$this->view->assign('selectedAdmins',$this->communityAdminModel->getManager($ids));
         return parent::modify($ids,'add','updateManager');
     }
 

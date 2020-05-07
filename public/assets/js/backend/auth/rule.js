@@ -8,9 +8,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'template'], function
                     "index_url": "auth/rule/index",
                     "add_url": "auth/rule/add",
                     "edit_url": "auth/rule/edit",
-                    "del_url": "auth/rule/del",
+                     "del_url": "auth/rule/del",
                     "multi_url": "auth/rule/multi",
-                    "table": "auth_rule"
+                    "table": "auth_rule",
+                    area: {
+                      edit:['800px','420px']
+                    }
                 }
             });
 
@@ -21,14 +24,29 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'template'], function
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 sortName: 'weigh',
                 escape:false, 
+                showExport: false,
                 columns: [
                     [
-                        {field: 'state', checkbox: true, },
-                        {field: 'id', title: 'ID'},
-                        {field: 'title', title: __('Title'), align: 'left', align: 'left', formatter: Controller.api.formatter.title},
+                        //{field: 'state', checkbox: true, },
+                        //{field: 'pid', title: 'ID'},
+                        {
+                          field: 'no',
+                          title: __('序号'),
+                          align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
                         {field: 'icon', title: __('Icon'), formatter: Controller.api.formatter.icon},
-                        {field: 'name', title: __('Name'), align: 'left', formatter: Controller.api.formatter.name},
-                        {field: 'weigh', title: __('Weigh')},
+                        {field: 'title', title: __('菜单名'), align: 'left',  formatter: Controller.api.formatter.title},
+              
+                        {field: 'name', title: __('路径url'), formatter: Controller.api.formatter.name},
+                        // {field: 'weigh', title: __('Weigh')},
                         {field: 'status', title: __('Status'), formatter: Table.api.formatter.status},
                         {field: 'ismenu', title: __('Ismenu'), align: 'center', formatter: Controller.api.formatter.menu},
                         {field: 'id', title: '<a href="javascript:;" class="btn btn-success btn-xs btn-toggle"><i class="fa fa-chevron-up"></i></a>', operate: false, formatter: Controller.api.formatter.subnode},

@@ -1,5 +1,6 @@
+/* 场地类型管理 */
 define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], function ($, undefined, Backend, Table, Form, UE) {
-
+   //表格
     var Controller = {
         index: function () {
             // 初始化表格参数配置
@@ -9,11 +10,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                     add_url: 'house/building/add',
                     edit_url: 'house/building/edit',
                     del_url: 'house/building/del',
+                    detail_url: 'house/building/detail',
                     table: 'house',
                     //设置不同操作下的弹窗宽高
                     area: {
-                        add:['800px','350px'],
-                        edit:['800px','350px']
+                        add:['800px','420px'],
+                        edit:['800px','420px'],
+                        detail:['800px','420px']
                     }
                 }
             });
@@ -25,8 +28,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 escape: false,
                 pk: 'id',
-                sortName: 'community_code,name',
-                sortOrder: 'asc,asc',
+                sortName: 'community_code,create_time',
+                sortOrder: 'asc,desc',
                 pagination: true,
                 pageSize: 10,
                 commonSearch: false,
@@ -46,7 +49,20 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
+                        {
+                          field: 'no',
+                          title: __('TableID'),
+                          align: "center",
+                          formatter: function (value, row, index) {
+                              //获取每页显示的数量
+                              var pageSize=$('#table').bootstrapTable('getOptions').pageSize;
+                              //获取当前是第几页
+                              var pageNumber=$('#table').bootstrapTable('getOptions').pageNumber;
+                              //返回序号，注意index是从0开始的，所以要加上1
+                              return pageSize * (pageNumber - 1) + index + 1;
+                          }
+                        },
+                        {field: 'thumb', title: __('缩略图'), operate: false, formatter: Table.api.formatter.image},
                         {field: 'community', title: __('Community'), formatter: function (community) {
                             if(community) {
                                 return community.name;
@@ -55,9 +71,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                         }},
                         {field: 'code', title: __('Code'), operate: false},
                         {field: 'name', title: __('Name'), operate: false},
-                        // {field: 'house', title: __('House'), operate: false},
-                        // {field: 'desc', title: __('Desc'), operate: false},
-                        {field: 'create_time', title: __('CreateTime'),formatter: Table.api.formatter.datetime},
+                        {field: 'create_time', title: __('CreateTime'), formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]

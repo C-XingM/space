@@ -52,7 +52,7 @@ class House extends Model {
      * @return false|\PDOStatement|string|\think\Collection
      */
     public function getHouseByCMCode($cmCode) {
-        $result = $this->where(array('community_code'=>$cmCode))->field('code,name')->select();
+        $result = $this->where(array('building_code'=>$cmCode))->field('code,name')->select();
         return $result;
     }
 

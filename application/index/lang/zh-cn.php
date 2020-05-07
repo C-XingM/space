@@ -2,7 +2,6 @@
 
 return [
     'Keep login'                                  => '记住密码',
-    'Sign in'                                     => '登入',
     'Username'                                    => '用户名',
     'User id'                                     => '会员ID',
     'Username'                                    => '用户名',
@@ -12,6 +11,8 @@ return [
     'Sign in'                                     => '登 录',
     'Sign out'                                    => '注 销',
     'Keep login'                                  => '记住密码',
+    'School chain'                                => '友情链接',
+    'Notify article'                              => '通知公告',
     'Guest'                                       => '游客',
     'Welcome'                                     => '%s，你好！',
     'Add'                                         => '添加',
@@ -51,7 +52,7 @@ return [
     'Index'                                       => '首页',
     'Hot'                                         => '热门',
     'Recommend'                                   => '推荐',
-    'Dashboard'                                   => '控制台',
+    'Dashboard'                                   => '首页',
     'Code'                                        => '编号',
     'Message'                                     => '内容',
     'Line'                                        => '行号',
@@ -67,6 +68,7 @@ return [
     'Append'                                      => '追加',
     'Memo'                                        => '备注',
     'Parent'                                      => '父级',
+    'IDS'                                         => '自身等级',
     'Params'                                      => '参数',
     'Permission'                                  => '权限',
     'Advance search'                              => '高级搜索',

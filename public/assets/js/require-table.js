@@ -15,6 +15,7 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
             idTable: 'commonTable',
             showExport: true,
             exportDataType: "all",
+            //exportTypes: ['json', 'xml', 'csv', 'txt', 'doc', 'excel'],
             exportTypes: ['json', 'xml', 'csv', 'txt', 'doc', 'excel'],
             pageSize: 10,
             pageList: [10, 25, 50, 'All'],
@@ -341,8 +342,8 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                         Sale: 'success',
                         Valid: 'success',
                         Valid1: 'grey',
-                        NoAnonymity: 'success',
-                        Anonymity: 'grey',
+                        NoAnonymity: 'danger',
+                        Anonymity: 'success',
                         UnRead: 'grey',
                         Read: 'success',
                         Lease: 'danger',
@@ -387,6 +388,21 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                   var html = '<span class="text-' + color + '">' + __(value) + '</span>';
                   return html;
               },
+              toggle: function (value, row, index) {
+                var table = this.table;
+                var options = table ? table.bootstrapTable('getOptions') : {};
+                var pk = options.pk || "id";
+                var color = typeof this.color !== 'undefined' ? this.color : 'success';
+                var yes = typeof this.yes !== 'undefined' ? this.yes : 1;
+                var no = typeof this.no !== 'undefined' ? this.no : 0;
+                var url = typeof this.url !== 'undefined' ? this.url : '';
+                var disable = false;
+                if (typeof this.disable !== "undefined") {
+                    disable = typeof this.disable === "function" ? this.disable.call(this, value, row, index) : this.disable;
+                }
+                return "<a href='javascript:;' data-toggle='tooltip' title='" + __('Click to toggle') + "' class='btn-change " + (disable ? 'btn disabled' : '') + "' data-id='"
+                    + row[pk] + "' " + (url ? "data-url='" + url + "'" : "") + " data-params='" + this.field + "=" + (value == yes ? no : yes) + "'><i class='fa fa-toggle-on " + (value == yes ? 'text-' + color : 'fa-flip-horizontal text-gray') + " fa-2x'></i></a>";
+            },
                 url: function (value, row, index) {
                     return '<div class="input-group input-group-sm" style="width:250px;"><input type="text" class="form-control input-sm" value="' + value + '"><span class="input-group-btn input-group-sm"><a href="' + value + '" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-link"></i></a></span></div>';
                 },

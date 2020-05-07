@@ -2,7 +2,7 @@
 namespace app\admin\controller\service;
 
 use app\common\controller\Backend;
-
+use think\Session;
 /**
  * Created by PhpStorm.
  * FileName: Index.php
@@ -17,7 +17,7 @@ class Activity extends Backend {
     protected $communityModel = null;
     //检索时匹配的字段
     protected $searchfields = 'community_code,status,tel';
-    protected $noNeedRight = ['selectpage'];
+    protected $noNeedRight = ['selectpage','get_building_by_cm_code,get_house_by_cm_code'];
 
     public function _initialize() {
         parent::_initialize();
@@ -46,6 +46,31 @@ class Activity extends Backend {
         return $this->view->fetch();
     }
 
+    public function apply($ids = null) {
+      $repair = $this->housemodel->get($ids);
+      $community = model('Community')->where(array('code'=>$repair['community_code']))->find();
+      $building = model('Building')->where(array('code'=>$repair['building_code']))->find();
+      $house = model('House')->where(array('code'=>$repair['code']))->find();
+      $this->view->assign('community',$community);
+      $this->view->assign('building',$building);
+      $this->view->assign('house',$house);
+      if ($this->request->isPost()) {
+        $params = $this->request->post('row/a');
+        $params['community_code']=$community['code'];
+        $params['building_code']=$building['code'];
+        $params['house_code']=$house['code'];
+        $admin = Session::get('admin');
+        $params['admin_id'] = $admin['id'];
+        $time = Session::get('time');
+        $params['begin_time']=$time['s_time'];
+        $params['end_time']=$time['e_time'];
+        $params['begin_time'] = strtotime($params['begin_time']);
+        $params['end_time'] = strtotime($params['end_time']);
+        $this->request->post(array('row'=>$params));
+    }
+    return parent::create();
+    }
+
     public function detail($ids = null) {
       $repair = $this->model->get($ids);
       $community = model('Community')->where(array('code'=>$repair['community_code']))->find();
@@ -62,6 +87,7 @@ class Activity extends Backend {
     public function add() {
         if ($this->request->isPost()) {
             $params = $this->request->post('row/a');
+            $params['code'] = $this->model->getMaxCode();
             $params['begin_time'] = strtotime($params['begin_time']);
             $params['end_time'] = strtotime($params['end_time']);
             $this->request->post(array('row'=>$params));
@@ -70,12 +96,6 @@ class Activity extends Backend {
     }
 
     public function edit($ids = null) {
-        // if ($this->request->isPost()) {
-        //     $params = $this->request->post("row/a");
-        //     $params['begin_time'] = strtotime($params['begin_time']);
-        //     $params['end_time'] = strtotime($params['end_time']);
-        //     $this->request->post(['row' => $params]);
-        // }
         $repair = $this->model->get($ids);
         $community = model('Community')->where(array('code'=>$repair['community_code']))->find();
         $building = model('Building')->where(array('code'=>$repair['building_code']))->find();
@@ -105,25 +125,30 @@ class Activity extends Backend {
         );
         $append = array_merge($append,$this->buildCommonSearch());
         list($where, $sort, $order, $offset, $limit,$orderParams) = $this->buildparams($searchfields,null,$append);
-        $total = $this->model->where($where)->count();
-        $list = $this->model->with('community,building,house,admin')->where($where)->order($orderParams)->limit($offset, $limit)->select();
+        if($this->auth->checkIsUser($userInfo['id']) === true){
+          $total = $this->model->where('admin_id', $this->auth->id)->count();
+          $list = $this->model->with('community,building,house,admin')->where('admin_id', $this->auth->id)->order($orderParams)->limit($offset, $limit)->select();
+        }else{
+          $total = $this->model->where($where)->count();
+          $list = $this->model->with('community,building,house,admin')->where($where)->order($orderParams)->limit($offset, $limit)->select();
+        }
         $result = array("total" => $total, "rows" => $list);
         return json($result);
     }
-    // public function get_building_by_cm_code() {
-    //   $result = array();
-    //   $cmCode = $this->request->request('community_code');
-    //   $building = $this->buildingModel->getBuildingByCMCode($cmCode);
-    //   $result['building'] = $building;
-    //   return json($result);
-    // }
-    // public function get_house_by_cm_code() {
-    //   $result = array();
-    //   $buCode = $this->request->request('building_code');
-    //   $building = $this->buildingModel->getHouseByCMCode($cmCode);
-    //   $result['building'] = $building;
-    //   return json($result);
-    // }
+    public function get_building_by_cm_code() {
+      $result = array();
+      $cmCode = $this->request->request('community_code');
+      $building = $this->buildingModel->getBuildingByCMCode($cmCode);
+      $result['building'] = $building;
+      return json($result);
+    }
+    public function get_house_by_cm_code() {
+      $result = array();
+      $buCode = $this->request->request('building_code');
+      $building = $this->buildingModel->getHouseByCMCode($cmCode);
+      $result['building'] = $building;
+      return json($result);
+    }
 
     /**
      * 自定义搜索

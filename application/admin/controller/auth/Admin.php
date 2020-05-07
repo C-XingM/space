@@ -40,6 +40,7 @@ class Admin extends Backend
         $this->view->assign('community',$this->communityModel->where(array('code'=>array('in',parent::getCommunityIdByAuth())))->field('code,name')->select());
     }
 
+     
     /**
      * 查看
      */

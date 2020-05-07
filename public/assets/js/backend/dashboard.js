@@ -1,21 +1,23 @@
 define(['jquery', 'bootstrap', 'backend', 'addtabs', 'table', 'echarts', 'echarts-theme', 'template', 'form'], function ($, undefined, Backend, Datatable, Table, Echarts, undefined, Template, Form) {
     var Controller = {
         index: function () {
-            var myChart = Echarts.init(document.getElementById('echart'), 'walden');
-            Controller.handleCommunityState(myChart);
-            $("#community_code").change();
-            $(window).resize(function () {
-                myChart.resize();
-            });
-            Controller.api.bindevent();
+          Controller.getRepair();
+            // var myChart = Echarts.init(document.getElementById('echart'), 'walden');
+            // Controller.handleCommunityState(myChart);
+            // //$("#community_code").change();
+            // $(window).resize(function () {
+            //     myChart.resize();
+            // });
+            // Controller.api.bindevent();
         },
         handleCommunityState: function (chartInstace) {
-            $("#community_code").bind("change",function () {
-                Controller.getGeneralData($(this).val());
-                Controller.getExpenses($(this).val(),chartInstace);
-                Controller.getActivity($(this).val());
-                Controller.getRepair($(this).val());
-            });
+           
+            // $("#community_code").bind("change",function () {
+            //     Controller.getGeneralData($(this).val());
+            //     Controller.getExpenses($(this).val(),chartInstace);
+            //     Controller.getActivity($(this).val());
+            //     Controller.getRepair($(this).val());
+            // });
         },
         getGeneralData: function (code) {
             var param = {};
@@ -78,21 +80,21 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'table', 'echarts', 'echart
             });
         },
         //获取最新报修申请
-        getRepair: function (code) {
-            var param = {};
-            if (code) {
-                param.code = code;
-            }
+        getRepair: function () {
+            
             $.ajax({
                 url: "dashboard/get_repair",
                 type: "post",
                 dataType: "html",
-                data: param,
+                //data: param,
                 success: function (ret) {
                     $("#latest_repair").html(ret);
                     $("#latest_repair").find("a").bind("click",function () {
-                        var url = $(this).attr("src");
-                        Controller.showDetail(url,"报修明细",['800px','450px']);
+                       var url = $(this).attr("src");
+                        //var url = $(this).find(".device_name1").html();
+                       //$("#dashboard-article").append( {include file=url });
+                        // 
+                        Controller.showDetail(url,"公告文章",['100%','100%']);
                     });
                 }
             });
@@ -205,4 +207,6 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'table', 'echarts', 'echart
     };
 
     return Controller;
+
+    
 });

@@ -1,49 +1,63 @@
 
 <div class="commonsearch-table">
-    <form class="form-horizontal form-commonsearch nice-validator n-default" role="form" action="" novalidate="novalidate">
-        <fieldset>
+  <div class="panel-body" style="padding:0;">
+    <div class="panel panel-default">
+      <div class="panel-heading" style="font-size:14px; ">查询条件</div>
+      <div class="panel-body">
+        <form class="form-horizontal form-commonsearch nice-validator n-default" role="form" action=""
+          novalidate="novalidate">
+          <fieldset>
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <label for="community_code" class="control-label col-xs-4">{:__('Community')}</label>
-                    <div class="col-xs-12 col-sm-8">
-                        <select id="community_code" class="form-control selectpicker show-tick" name="query[community_code]" data-live-search="true">
-                            <option value="" {in name="query.community_code" value=""}selected{/in}>全部</option>
-                            {foreach name="community" item="vo"}
-                            <option value="{$vo.code}">{$vo.name}</option>
-                            {/foreach}
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                  <label class="control-label col-xs-4">{:__('Building')}:</label>
+              <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-6">
-                      <select id="building_code" class="form-control" name="query[building_code]">
-                      </select>
-                  </div>
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-6">
-                    <label class="control-label col-xs-4">{:__('Time')}:</label>
-                    <div class="col-xs-12 col-sm-8">
-                        <div class="row row-between">
-                            <div class="col-xs-6 11" style="position: relative;width:49%;">
-                                <!-- <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_begin]" value="" /> -->
-                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="start_time" name="row[start_time]" value="{$duty.start_time|datetime='Y-m-d H:i'}" data-rule="required;datetime" />
-                            </div>
-                            <div style="position: relative;float:left;height:30px;line-height:30px;">-</div>
-                            <div class="col-xs-6 22" style="position: relative;width:49%;">
-                                <!-- <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" name="query[birth_end]" value="" /> -->
-                                <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="end_time" name="row[end_time]" value="{$duty.end_time|datetime='Y-m-d H:i'}" data-rule="required;datetime" />
-                              </div>
+                    <label class="control-label col-sm-2">{:__('Time')}:</label>
+                    <div class="col-xs-12 col-sm-10">
+                      <div class="row row-between">
+                        <div class="col-xs-6 11" style="position: relative;width:49%;" >
+      
+                          <input type="text" class="form-control datetimepicker"data-date-format="YYYY-MM-DD HH:mm"
+                            id="start_time" name="query[enter_time_begin]"  value="" data-rule="required"/> 
                         </div>
+                        <div style="position: relative;float:left;height:30px;line-height:30px;">-</div>
+                        <div class="col-xs-6 22" style="position: relative;width:49%;">
+                         
+                          <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm"
+                            id="end_time" name="query[enter_time_end]" value="" data-rule="required" />
+                        </div>
+                      </div>
                     </div>
+                  </div>
+              </div>
+              <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <label for="community_code" class="control-label col-xs-4">{:__('Community')}</label>
+                <div class="col-xs-12 col-sm-8">
+                  <select id="community_code" class="form-control selectpicker show-tick" name="query[community_code]"
+                    data-live-search="true" data-rule="required">
+                    <!-- <option value="" {in name="query.community_code" value="" }selected{/in}>全部 </option>  -->
+                    {foreach
+                      name="community" item="vo" } <option value="{$vo.code}">{$vo.name}</option>
+                    {/foreach}
+                  </select>
                 </div>
-                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="col-sm-8 col-xs-offset-4">
-                        <button type="button" class="btn btn-primary" id="common_search">查询</button>
-                        <button type="reset" class="btn btn-default">重置</button>
-                    </div>
+              </div>
+              <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <label for="building_code"  class="control-label col-xs-4">{:__('Building')}:</label>
+                <div class="col-xs-12 col-sm-6">
+                  <select id="building_code" class="form-control" name="query[building_code]">
+                  </select>
                 </div>
+              </div>
+              <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="col-sm-8 col-xs-offset-4">
+                  <button type="submit" class="btn btn-primary" id="common_search">查询</button>
+                  <button type="reset" class="btn btn-default" onclick='location.reload();' id="reset">重置</button>
+                </div>
+              </div>
             </div>
-        </fieldset>
-    </form>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>

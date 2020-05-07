@@ -1,10 +1,12 @@
 <style type="text/css">
-    #schedulepicker {
-        padding-top:7px;
-    }
+  #schedulepicker {
+    padding-top: 7px;
+  }
 </style>
 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-    <div class="form-group">
+
+
+  <div class="form-group">
         <label for="community_code" class="control-label col-xs-12 col-sm-2">{:__('Community')}:</label>
         <div class="col-xs-12 col-sm-6">
             <select id="community_code" data-rule="required" class="form-control selectpicker show-tick" name="row[community_code]" data-live-search="true">
@@ -15,69 +17,86 @@
         </div>
     </div>
     <div class="form-group">
-      <label for="building_code" class="control-label col-xs-12 col-sm-2">{:__('Building')}:</label>
-      <div class="col-xs-12 col-sm-6">
-          <select id="building_code" data-rule="required" class="form-control" name="row[building_code]">
-          </select>
+        <label for="building_code" class="control-label col-xs-12 col-sm-2">{:__('Building')}:</label>
+        <div class="col-xs-12 col-sm-6">
+            <select id="building_code" data-rule="required" class="form-control" name="row[building_code]">
+            </select>
+        </div>
+    </div>
+
+  <div class="form-group">
+    <label for="house_code" class="control-label col-xs-12 col-sm-2">{:__('House')}:</label>
+    <div class="col-xs-12 col-sm-6">
+         <select id="building_code" data-rule="required" class="form-control" name="row[house_code]">
+            </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="begin_time" class="control-label col-xs-12 col-sm-2">{:__('BeginTime')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="begin_time"
+        name="row[begin_time]" value="{$row.begin_time|datetime='Y-m-d H:i'}" /> 
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="end_time" class="control-label col-xs-12 col-sm-2">{:__('EndTime')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="end_time"
+        name="row[end_time]" value="{$row.end_time|datetime='Y-m-d H:i'}"/> 
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="admin_id" class="control-label col-xs-12 col-sm-2">{:__('Admin')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="title" name="row[admin_code]" value="{$admin.nickname}" disabled="disabled"/>
+      <!-- <select id="admin_id" class="form-control" name="row[admin_id]">
+      </select> -->
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="tel" class="control-label col-xs-12 col-sm-2">{:__('Tel')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="tel" name="row[tel]" value="{$row.tel}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="sponsor_unit" class="control-label col-xs-12 col-sm-2">{:__('SponsorUnit')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="sponsor_unit" name="row[sponsor_unit]" value="{$row.sponsor_unit}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="type" class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+    <div class="col-xs-12 col-sm-6">
+        {:build_radios('row[type]', ['0'=>__('Teaching'),'1'=>__('Recreational')],$row['status'])}
+      <!-- <input type="text" class="form-control" id="type" name="row[type]" value="{$type[$row.type]}"/> -->
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="title" class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" class="form-control" id="title" name="row[title]" value="{$row.title}" data-rule="required" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="container" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+    <div class="col-xs-12 col-sm-6">
+      <textarea class="form-control" id="container" name="row[content]" rows="5"></textarea>
+    </div>
+  </div>
+
+
+  <div class="form-group hide layer-footer">
+      <label class="control-label col-xs-12 col-sm-2"></label>
+      <div class="col-xs-12 col-sm-8">
+          <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+          <button type="button" class="btn btn-default btn-embossed" onClick="closeLayerWin(this)">{:__('Close')}</button>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="house_code" class="control-label col-xs-12 col-sm-2">{:__('House')}:</label>
-      <div class="col-xs-12 col-sm-6">
-          <select id="house_code" data-rule="required" class="form-control" name="row[house_code]">
-          </select>
-      </div>
-    </div>
-    <div class="form-group">
-        <label for="title" class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="title" name="row[title]" value="{$row.title}" data-rule="required" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="container" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
-        <div class="col-xs-12 col-sm-9">
-            <!-- <script id="container" name="row[content]" type="text/plain">{$row.content}</script> -->
-            <textarea class="form-control" id="container" name="row[content]" rows="5" data-rule="required">{$row.content}</textarea>
-        </div>
-    </div>
-
-    
-
-    <div class="form-group">
-        <label for="sponsor_unit" class="control-label col-xs-12 col-sm-2">{:__('SponsorUnit')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="sponsor_unit" name="row[sponsor_unit]" value="{$row.sponsor_unit}" data-rule="required" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="begin_time" class="control-label col-xs-12 col-sm-2">{:__('BeginTime')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="begin_time" name="row[begin_time]" value="{$row.begin_time|datetime="Y-m-d H:i"}" data-rule="datetime" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="end_time" class="control-label col-xs-12 col-sm-2">{:__('EndTime')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" id="end_time" name="row[end_time]" value="{$row.end_time|datetime="Y-m-d H:i"}" data-rule="datetime" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            {:build_radios('row[status]', ['0'=>__('InValid'),'1'=>__('Valid')],$row['status'])}
-        </div>
-    </div>
-
-    <div class="form-group hide layer-footer">
-        <label class="control-label col-xs-12 col-sm-2"></label>
-        <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
-            <button type="button" class="btn btn-default btn-embossed" onClick="closeLayerWin(this)">{:__('Close')}</button>
-        </div>
-    </div>
+  </div>
 
 </form>

@@ -37,9 +37,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'jstree'], function (
                 columns: [
                     [
                         {field: 'state', checkbox: true, },
-                        {field: 'id', title: 'ID'},
                         {field: 'pid', title: __('Parent')},
-                        {field: 'name', title: __('Name'), align: 'left'},
+                        {field: 'id', title: '自身等级'},
+                        {field: 'name', title: __('Name')},
                         {field: 'status', title: __('Status'), formatter: Table.api.formatter.status},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: function (value, row, index) {
                                 if (Config.admin.group_ids.indexOf(parseInt(row.id)) > -1) {
@@ -108,9 +108,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'jstree'], function (
                 $(document).on("click", "#checkall", function () {
                     $("#treeview").jstree($(this).prop("checked") ? "check_all" : "uncheck_all");
                 });
-                $(document).on("click", "#expandall", function () {
-                    $("#treeview").jstree($(this).prop("checked") ? "open_all" : "close_all");
+                $(document).on("mouseenter", "#add-form", function () {
+                    $("#treeview").jstree("open_all");
                 });
+                // $(document).on("click", "#expandall", function () {
+                //     $("#treeview").jstree($(this).prop("checked") ? "open_all" : "close_all");
+                // });
                 $("select[name='row[pid]']").trigger("change");
             },
             rendertree: function (content) {

@@ -457,5 +457,9 @@ class Backend extends Controller
         $cmIds = model('Community')->getCommunityCodeByAuth($this->auth);
         return $cmIds;
     }
+    // protected function getRepairIdByAuth() {
+    //   $cmIds = model('Repair')->getCommunityCodeByAuth($this->auth);
+    //   return $cmIds;
+    // }
 
 }

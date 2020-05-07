@@ -7,7 +7,7 @@ use think\Config;
 use think\Db;
 
 /**
- * 控制台
+ * 首页
  *
  * @icon fa fa-dashboard
  * @remark 用于展示当前系统中的统计数据、统计报表及重要实时数据
@@ -21,9 +21,16 @@ class Dashboard extends Backend {
     public function _initialize() {
         parent::_initialize();
         $this->prefix = Config::get('database.prefix');
+        $this->model = model('House');
         $this->communityModel = model('Community');
+        $this->repairModel = model('Repair');
+        //$this->view->assign('repair1',model('Repair')->where("id=2")->select());
         $this->view->assign('community',$this->communityModel->where(array('code'=>array('in',parent::getCommunityIdByAuth())))->field('code,name')->select());
-    }
+        $this->$repair = model('Repair')->order('id desc')->field('id,device_name,desc,create_time')->limit(0,10)->select();
+        //$this->view->assign('repair',$repair);
+        //echo $this->->view->assign('repair',$repair)->fetch('repair');
+        $this->view->assign('repair',$repair)->fetch('repair');
+      }
 
     /**
      * 查看
@@ -147,33 +154,41 @@ class Dashboard extends Backend {
         return array('pending'=>$pending,'processing'=>$processing);
     }
 
+
     //获取小区最新活动
     public function get_activity() {
-        $community_code = $this->request->request('code');
+        //$community_code = $this->request->request('code');
         $where = array(
-            'status' => 1,
-            'community_code' => $community_code
+            'status' => 2,
+            //'community_code' => $community_code
         );
-        $activity = model('Activity')->where($where)->order('id desc')->field('id,title,create_time')->limit(0,10)->select();
+        $activity = model('Activity')->order('id desc')->field('id,create_time')->limit(0,10)->select();
         $this->view->assign('activity',$activity);
         echo $this->view->fetch('activity');
     }
 
     //获取最新报修申请
     public function get_repair() {
-        $statusText = array(__('Pending'),__('Processing'),__('Processed'));
-        $color = array('#e74c3c','#3498db','#18bc9c');
-        $community_code = $this->request->request('code');
-        $where = array(
-            'community_code' => $community_code
-        );
-        $repair = model('Repair')->with('member')->where($where)->order('id desc')->limit(0,10)->select();
-        foreach ($repair as &$item) {
-            $item['statusText'] = $statusText[$item['status']];
-            $item['color'] = $color[$item['status']];
-        }
-        $this->view->assign('repair',$repair);
-        echo $this->view->fetch('repair');
+      $where = array(
+        'admin_id' => 1,
+        //'community_code' => $community_code
+    );
+      $repair = model('Repair')->order('id desc')->field('id,device_name,desc,create_time')->limit(0,8)->select();
+      $this->view->assign('repair',$repair);
+      echo $this->view->fetch('repair');
+        // $statusText = array(__('Pending'),__('Processing'),__('Processed'));
+        // $color = array('#e74c3c','#3498db','#18bc9c');
+        // $community_code = $this->request->request('code');
+        // // $where = array(
+        // //     'community_code' => $community_code
+        // // );
+        // $repair = model('Repair')->with('member')->where($where)->order('id desc')->limit(0,10)->select();
+        // foreach ($repair as &$item) {
+        //     $item['statusText'] = $statusText[$item['status']];
+        //     $item['color'] = $color[$item['status']];
+        // }
+        // $this->view->assign('repair',$repair);
+        // echo $this->view->fetch('repair');
     }
 
     //获取每月收费统计数据

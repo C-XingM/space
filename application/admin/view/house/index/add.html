@@ -27,48 +27,16 @@
             <input type="text" class="form-control" id="name" name="row[name]" value="{$row.name}" data-rule="required" />
         </div>
     </div>
-    <!-- <div class="form-group">
-        <label for="owner_name" class="control-label col-xs-12 col-sm-2">{:__('OwnerName')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="owner_name" name="row[owner_name]" value="{$row.owner_name}" data-rule="required" />
-        </div>
-    </div>
     <div class="form-group">
-        <label for="owner_tel" class="control-label col-xs-12 col-sm-2">{:__('OwnerTel')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="owner_tel" name="row[owner_tel]" value="{$row.owner_tel}" data-rule="required;mobile" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="rooms" class="control-label col-xs-12 col-sm-2">{:__('Rooms')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="rooms" name="row[rooms]" value="{$row.rooms}" data-rule="required;digits" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="unit" class="control-label col-xs-12 col-sm-2">{:__('Unit')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="unit" name="row[unit]" value="{$row.unit}" data-rule="required" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="floor" class="control-label col-xs-12 col-sm-2">{:__('Floor')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="floor" name="row[floor]" value="{$row.floor}" data-rule="required;digits" />
-        </div>
-    </div> 
-    <div class="form-group">
-        <label for="enter_time" class="control-label col-xs-12 col-sm-2">{:__('EnterTime')}:</label>
-        <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" id="enter_time" name="row[enter_time]" value="{$row.enter_time|datetime="Y-m-d"}" data-rule="date" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="desc" class="control-label col-xs-12 col-sm-2">{:__('Desc')}:</label>
+        <label for="c-thumb" class="control-label col-xs-12 col-sm-2">{:__('缩略图')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input type="text" class="form-control" id="desc" name="row[desc]" value="{$row.desc}" />
+            <div class="form-inline">
+                <input id="c-thumb" class="form-control" size="50" name="row[thumb]" type="hidden" value="{$row.thumb}"">
+                <span><button id="plupload-image" class="btn btn-danger plupload" data-input-id="c-thumb" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-preview-id="p-thumb"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                <ul class="row list-inline plupload-preview" id="p-thumb"></ul>
+            </div>
         </div>
-    </div> -->
+    </div>
     <div class="form-group hide layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">

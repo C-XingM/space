@@ -1,3 +1,16 @@
+<style>
+    #style-time:hover{
+        background-color: #18bc9c;
+    }
+     #style-out{
+        border: 0;
+        border-radius:0;
+        background-color: #e4766a;
+    }
+    #style-out:hover{
+        background-color: #d62c1a;
+    }
+</style>
 <!-- Logo -->
 <a href="javascript:;" class="logo">
     <!-- 迷你模式下Logo的大小为50X50 -->
@@ -21,29 +34,27 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
             <li>
-                <a href="javascript:;"><span>{:date('Y年m月d日 ')}{:__(date('星期w'))}</span></a>
+                <a href="javascript:;" id="style-time"><span>{:date('Y年m月d日 ')}{:__(date('星期w'))}</span></a>
                 <!-- :date('Y年m月d日')+ -->
             </li>
 
-            <!-- <li>
-                <a href="{:url('index/login')}" target="_blank" title="{:__('Frontend home')}"><i class="fa fa-home" style="font-size:14px;"></i></a>
-            </li> -->
-
-            <li class="hidden">
-                <a href="javascript:;" data-toggle="wipecache" title="{:__('Wipe cache')}">
+            <li>
+                <a href="{:url('index/logout')}" class="btn btn-danger" id="style-out">
+                <i class="fa fa-sign-out"></i> {:__('Logout')}</a>
+                <!-- <a href="javascript:;" data-toggle="wipecache" title="{:__('Wipe cache')}">
                     <i class="fa fa-trash"></i>
-                </a>
+                </a> --  class="hidden">-->
             </li>
 
             <!-- 账号信息下拉框 -->
-            <li class="dropdown user user-menu">
+            <!-- <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="__CDN__{$admin.avatar}" class="user-image" alt="{$admin.nickname}">
                     <span class="hidden-xs">{$admin.nickname}</span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- User image -->
+                    
                     <li class="user-header">
                         <img src="__CDN__{$admin.avatar}" class="img-circle" alt="">
 
@@ -53,7 +64,7 @@
                         </p>
                     </li>
                     <hr style="margin-bottom:0px;"/>
-                    <!-- Menu Footer-->
+                    
                     <li class="user-footer">
                         <div class="pull-left">
                             <a href="general/profile" class="btn btn-primary addtabsit"><i class="fa fa-user"></i> {:__('Profile')}</a>
@@ -62,7 +73,7 @@
                             <a href="{:url('index/logout')}" class="btn btn-danger"><i class="fa fa-sign-out"></i> {:__('Logout')}</a>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
                 <!-- <ul class="dropdown-menu" style="margin-top:5px; background-color: #16a98c;">
                     <li>
                       <a href="general/profile" class="btn addtabsit pull-left" style="color: #fff;">

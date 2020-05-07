@@ -27,7 +27,7 @@ class Complain extends Model {
         return $this->belongsTo('Community','community_code','code');
     }
 
-    public function member(){
-        return $this->belongsTo('Member','member_id','id');
+    public function admin(){
+      return $this->belongsTo('Admin','admin_id','id');
     }
 }

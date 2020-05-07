@@ -403,5 +403,26 @@ class Auth extends \fast\Auth
         }
         return false;
     }
+    /**
+     * 检查登录用户是否为用户
+     * @param null $uid
+     * @return bool
+     */
+    public function checkIsUser($uid = null) {
+      $userId = $uid;
+      if (!$userId) {
+          $admin = Session::get('admin');
+          if($admin) {
+              $userInfo = json_decode($admin,true);
+              $userId = $userInfo['id'];
+          }
+      }
+      if($userId) {
+          $groupIds = $this->getGroupIds($userId);
+          $minPid = model('AuthGroup')->where(array('id'=>array('in',$groupIds)))->min('pid');
+          return $minPid == 2 ? true : false;
+      }
+      return false;
+  }
 
 }
