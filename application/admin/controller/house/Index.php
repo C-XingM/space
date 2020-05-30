@@ -19,7 +19,7 @@ class Index extends Backend {
     
     //检索时匹配的字段
     protected $searchfields = 'code,name';//'code,name,owner_name,owner_tel';
-    protected $noNeedRight = ['selectpage','get_building_by_cm_code,get_house_by_cm_code'];
+    protected $noNeedRight = ['selectpage','get_building_by_cm_code'];
 
     public function _initialize() {
         parent::_initialize();
@@ -85,7 +85,7 @@ class Index extends Backend {
         // dump($append);die;
         list($where, $sort, $order, $offset, $limit,$orderParams) = $this->buildparams($searchfields,null,$append);
         $total = $this->model->where($where)->count();
-        $list = $this->model->with('community,building,house')->where($where)->order($orderParams)->limit($offset, $limit)->select();
+        $list = $this->model->with('community,building')->where($where)->order($orderParams)->limit($offset, $limit)->select();
         $result = array("total" => $total, "rows" => $list);
         return json($result);
     }
@@ -97,13 +97,7 @@ class Index extends Backend {
         $result['building'] = $building;
         return json($result);
     }
-    public function get_house_by_cm_code() {
-      $result = array();
-      $buCode = $this->request->request('building_code');
-      $house = $this->houseModel->getHouseByCMCode($buCode);
-      $result['house'] = $house;
-      return json($result);
-    }
+    
     /**
      * 自定义搜索
      * @return array

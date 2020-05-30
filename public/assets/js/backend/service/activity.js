@@ -25,8 +25,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 escape: false,
                 pk: 'id',
-                sortName: 'create_time',
-                sortOrder: 'desc',
+                sortName: 'status,create_time',
+                sortOrder: 'asc,desc',
                 pagination: true,
                 pageSize: 10,
                 commonSearch: false,
@@ -99,7 +99,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'baidueditor'], funct
                         }},
                         //{field: 'begin_time', title: __('BeginTime'),formatter: Table.api.formatter.datetime},
                         //{field: 'end_time', title: __('EndTime'),formatter: Table.api.formatter.datetime},
-                        {field: 'create_time', title: __('CreateTime'), visible: false, formatter: Table.api.formatter.datetime},
+                        {field: 'create_time', title: __('CreateTime'),  formatter: Table.api.formatter.datetime},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]

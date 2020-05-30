@@ -40,6 +40,7 @@ class Index extends Backend
      */
     public function login()
     {
+      echo phpinfo(); 
         $url = $this->request->get('url', 'index/index');
         if ($this->auth->isLogin())
         {
